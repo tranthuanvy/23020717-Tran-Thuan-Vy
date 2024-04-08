@@ -21,6 +21,7 @@ public:
     void LoadMap(  char* name);
     void LoadTiles(SDL_Renderer* screen);
     void DrawMap(SDL_Renderer* screen);
+    map getMap()const {return game_map_;};
 private:
   map game_map_;//chứa toàn bộ thông tin: trạng thái của ô , vị trí của ô,chỉ sô của ô
   TileMap tile_map_[MAX_TILES];
