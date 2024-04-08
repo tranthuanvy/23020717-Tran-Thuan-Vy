@@ -2,6 +2,9 @@
 #define MAIN_OBJECT_H
 #include "CommonFunc.h"
 #include "BaseObject.h"
+
+#define MAX_FALL_SPEED 10
+#define PLAYER_SPEED 8
 class MainObject : public BaseObject
 {
 public:
@@ -16,6 +19,9 @@ public:
     void Show(SDL_Renderer* des);
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
     void set_clips();
+    void DoPlayer(map& map_data);
+    void CheckToMap(map& map_data);
+
 private:
     float x_val_;
     float y_val_;
@@ -30,7 +36,7 @@ private:
     Input input_type_;
     int frame_;
     int status_;
-
+    bool on_ground_;
 
 };
 
