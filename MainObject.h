@@ -21,10 +21,15 @@ public:
     void set_clips();
     void DoPlayer(map& map_data);
     void CheckToMap(map& map_data);
+    void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;};//tinh toan gia tri x, y mep ban do
+    void Mapwhenrunner(map& map_data);
 
 private:
     float x_val_;
     float y_val_;
+
+
+
 
     float x_pos_;
     float y_pos_;
@@ -37,6 +42,9 @@ private:
     int frame_;
     int status_;
     bool on_ground_;
+
+    int map_x_;
+    int map_y_;
 
 };
 
