@@ -108,12 +108,19 @@ int main(int argc, char* args[])
 
       SDL_RenderClear(gRenderer);
       g_background.renderTexture(gRenderer,NULL);
-     game_map.DrawMap(gRenderer);
+
      map map_data=game_map.getMap();
+
+     character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
     character_game.DoPlayer(map_data);
      character_game.Show(gRenderer);
 
+     game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
+     game_map.DrawMap(gRenderer);
+
       SDL_RenderPresent(gRenderer);
+
+
 
   }
 
