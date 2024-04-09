@@ -16,6 +16,8 @@ MainObject::MainObject ()
     input_type_.up_=0;
     input_type_.jump_=0;*/
     on_ground_=false;
+    map_x_  =0;
+    map_y_ =0;
 
 }
 MainObject::~MainObject ()
@@ -98,8 +100,8 @@ void MainObject::Show (SDL_Renderer* des)
     {
         frame_=0;
     }
-    rect_.x=x_pos_;
-    rect_.y=y_pos_;
+    rect_.x=x_pos_ - map_x_;//tru di khoang cuon chieu
+    rect_.y=y_pos_ - map_y_;
 
     SDL_Rect* currect_clip=&frame_clip_[frame_];
     SDL_Rect renderQuad ={ rect_.x,rect_.y,width_frame_,height_frame_};
@@ -137,7 +139,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 void MainObject::DoPlayer(map& map_data)
 {
     x_val_=0;
-    y_val_+=1; //0.8:GRAVITY_SPEED
+    y_val_+=0.8; //0.8:GRAVITY_SPEED
 
     if(y_val_>=MAX_FALL_SPEED)
     {
@@ -150,6 +152,31 @@ void MainObject::DoPlayer(map& map_data)
     }
 
     CheckToMap(map_data);
+    Mapwhenrunner(map_data);
+}
+
+void MainObject:: Mapwhenrunner(map& map_data)
+{
+    map_data.start_x_= x_pos_- (SCREEN_WIDTH/2);
+
+    if (map_data.start_x_<0)
+    {
+        map_data.start_x_=0;
+    }
+    else if(map_data.start_x_+SCREEN_WIDTH >= map_data.max_x_)
+    {
+        map_data.start_x_= map_data.max_x_-SCREEN_WIDTH;
+    }
+
+    map_data.start_y_=y_pos_-(SCREEN_HEIGHT/2);
+    if(map_data.start_y_<0)
+    {
+        map_data.start_y_=0;
+    }
+    else if(map_data.start_y_+SCREEN_HEIGHT >=map_data.max_y_)
+        {
+            map_data.start_y_=map_data.max_y_-SCREEN_HEIGHT;
+        }
 }
 void MainObject::CheckToMap(map& map_data)
 {
@@ -200,7 +227,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
               y_pos_=y2*TILE_SIZE;
               y_pos_ -=(height_frame_+1);
               y_val_=0;
-              on_ground_=true;
+              on_ground_=true;//nhân vật chưa chạm đến màn hình do hình ảnh góc thừa khoảng trắng
 
           }
       }
