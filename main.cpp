@@ -2,6 +2,7 @@
 #include"BaseObject.h"
 #include "GameMap.h"
 #include"MainObject.h"
+#include"Timer.h"
 BaseObject g_background;
 bool init() {
 
@@ -77,6 +78,7 @@ bool loadbkground()
  }
 int main(int argc, char* args[])
 {
+    Timer time;
   // Khởi tạo SDL
   if (!init())
     {
@@ -87,6 +89,7 @@ int main(int argc, char* args[])
     std::cout<<" lỗi tại background!"<<std::endl;
     return -1;
   }
+
     GameMap game_map;
      game_map.LoadMap("map/map01.txt");    // Sử dụng trực tiếp kiểu const char**/
    game_map.LoadTiles(gRenderer);
@@ -95,8 +98,11 @@ int main(int argc, char* args[])
    character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
    character_game.set_clips();
    bool quit = false;
-   while (!quit) {
-    while (SDL_PollEvent(&e) != 0) {
+   while (!quit)
+    {
+        time.start();
+    while (SDL_PollEvent(&e) != 0)
+    {
       if (e.type == SDL_QUIT) {
         quit = true;
         break;
@@ -112,7 +118,7 @@ int main(int argc, char* args[])
      map map_data=game_map.getMap();
 
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
-    character_game.DoPlayer(map_data);
+    character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
      character_game.Show(gRenderer);
 
      game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
@@ -120,7 +126,19 @@ int main(int argc, char* args[])
 
       SDL_RenderPresent(gRenderer);
 
+    int real_timer= time.get_ticks();// thoi gian thuc su troi qua
+    int time_one_frame =1000/*mili giay*//FRAME_PER_SECOND;
 
+
+    if(real_timer<time_one_frame)
+    {
+      int delay_time=time_one_frame-real_timer;
+
+      if(delay_time)
+      {
+      SDL_Delay(delay_time);
+      }
+    }
 
   }
 

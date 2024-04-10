@@ -10,7 +10,7 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP =32;
-
+const int FRAME_PER_SECOND =35;
 
 static SDL_Window * gWindow =nullptr;
 static SDL_Renderer* gRenderer = nullptr;
@@ -41,7 +41,7 @@ typedef struct map
 
     int tile[MAX_MAP_Y][MAX_MAP_X];
     char* file_name_;
-}map ;
+} ;
 
 
 #endif // COMMON_FUNC_H_

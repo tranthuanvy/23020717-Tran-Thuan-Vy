@@ -4,7 +4,7 @@
     FILE* fp =nullptr;
     fopen_s (&fp,name,"rb");
     if(fp ==nullptr)
-    {
+    {   std::cout<<"khong doc duoc"<<std::endl;
         return ;
     }
     game_map_.max_x_=0;
@@ -21,7 +21,7 @@
                 {
                     game_map_.max_x_=j;
                 }
-                if(j>game_map_.max_y_)
+                if(i>game_map_.max_y_)
                 {
                    game_map_.max_y_=i;
                 }
@@ -66,7 +66,7 @@ void GameMap::DrawMap(SDL_Renderer* screen)
     int map_y=0;
 
      map_x = game_map_.start_x_ / TILE_SIZE;
-    x1 = (game_map_.start_x_ % TILE_SIZE) * -10;
+    x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
     x2 = x1 + SCREEN_WIDTH + (x1 == 0 ? 0 : TILE_SIZE);
 
     map_y = game_map_.start_y_ / TILE_SIZE;

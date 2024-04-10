@@ -2,9 +2,10 @@
 #define GAME_MAP_H
 #include "CommonFunc.h"
 #include"BaseObject.h"
-#include <cstdio>
+
 
 #define MAX_TILES 20
+
 
 class TileMap : public BaseObject
 {

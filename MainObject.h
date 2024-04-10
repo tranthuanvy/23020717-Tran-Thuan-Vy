@@ -3,6 +3,7 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
+#define PLAYERJUMPVALUE 20
 #define MAX_FALL_SPEED 10
 #define PLAYER_SPEED 8
 class MainObject : public BaseObject
@@ -19,9 +20,11 @@ public:
     void Show(SDL_Renderer* des);
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
     void set_clips();
-    void DoPlayer(map& map_data);
+
     void CheckToMap(map& map_data);
+    void DoPlayer(map& map_data);
     void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;};//tinh toan gia tri x, y mep ban do
+
     void Mapwhenrunner(map& map_data);
 
 private:

@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1712760973 source:c:\users\admin\desktop\thuchoan\main.cpp
+	"CommonFunc.h"
+	"BaseObject.h"
+	"GameMap.h"
+	"MainObject.h"
+	"Timer.h"
+
+1712428274 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
+	"CommonFunc.h"
+
+1712742993 c:\users\admin\desktop\thuchoan\commonfunc.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+	<string>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+
+1712742917 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
+	"BaseObject.h"
+
+1712477922 c:\users\admin\desktop\thuchoan\baseobject.h
+	"CommonFunc.h"
+
+1712677891 source:c:\users\admin\desktop\thuchoan\gamemap.cpp
+	"GameMap.h"
+
+1712677168 c:\users\admin\desktop\thuchoan\gamemap.h
+	"CommonFunc.h"
+	"BaseObject.h"
+
+1712467946 c:\users\admin\desktop\thuchoan\gamemap.cpp
+	"GameMap.h"
+
+1712760973 c:\users\admin\desktop\thuchoan\mainobject.h
+	"CommonFunc.h"
+	"BaseObject.h"
+
+1712778372 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+	"MainObject.h"
+
+1712739749 source:c:\users\admin\desktop\thuchoan\timer.cpp
+	"Timer.h"
+
+1712739785 c:\users\admin\desktop\thuchoan\timer.h
+	"CommonFunc.h"
+

@@ -3,7 +3,7 @@
 MainObject::MainObject ()
 {
     frame_=0;
-    x_pos_=0;
+    x_pos_=200;
     y_pos_=0;
     x_val_=0;
     y_val_=0;
@@ -15,10 +15,10 @@ MainObject::MainObject ()
     input_type_.down_=0;
     input_type_.up_=0;
     input_type_.jump_=0;*/
-    on_ground_=false;
+     //on_ground_ =false;
     map_x_  =0;
     map_y_ =0;
-
+    on_ground_=false;
 }
 MainObject::~MainObject ()
 {
@@ -83,8 +83,13 @@ void MainObject:: set_clips()
     }
 }
 void MainObject::Show (SDL_Renderer* des)
-{ if(status_==WALK_RIGHT)
+{
+    if(on_ground_==true)
+    {
+      if(status_==WALK_RIGHT)
     {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
+    }
+
 
     if(input_type_.right_==1)
     {
@@ -108,6 +113,7 @@ void MainObject::Show (SDL_Renderer* des)
 
     SDL_RenderCopy(des,p_object_,currect_clip,&renderQuad);
 }
+
 void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 {
     if(events.type==SDL_KEYDOWN)
@@ -117,11 +123,19 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
         case SDLK_RIGHT :
             {  status_=WALK_RIGHT;
               input_type_.right_=1;
+              if(on_ground_==true)
+              {
+                  LoadImg("C:/Users/Admin/Pictures/animal.PNG",screen);
+              }
+              else
+                {
+                LoadImg("C:/Users/Admin/Pictures/anhtinh.png",screen);
+                }
             }
             break;
 
         }
-    }else if(events.type== SDL_KEYUP)
+    }/*else if(events.type== SDL_KEYUP)
     {
         switch(events.key.keysym.sym)
         {
@@ -133,8 +147,24 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             break;
 
         }
-
+    }*/
+    if (events.type == SDL_KEYDOWN) {
+        switch (events.key.keysym.sym) {
+            case SDLK_SPACE:
+              input_type_.jump_=1;
+                break;
+        }
     }
+
+   /* if(events.type==SDL_MOUSEBUTTONDOWN)
+    {
+        if(events.button.button==SDL_BUTTON_RIGHT)
+        {
+             input_type_.jump_=1;
+        }
+    }*/
+
+
 }
 void MainObject::DoPlayer(map& map_data)
 {
@@ -151,13 +181,31 @@ void MainObject::DoPlayer(map& map_data)
         x_val_+=PLAYER_SPEED;
     }
 
+
+
+       if(input_type_.jump_==1)
+        {
+
+          if(on_ground_==true)
+          {
+
+            y_val_=-PLAYERJUMPVALUE;
+           }
+
+            input_type_.jump_=0;
+        }
+
+
+
+
     CheckToMap(map_data);
     Mapwhenrunner(map_data);
 }
 
 void MainObject:: Mapwhenrunner(map& map_data)
 {
-    map_data.start_x_= x_pos_- (SCREEN_WIDTH/2);
+
+    map_data.start_x_= x_pos_- (SCREEN_WIDTH/4);
 
     if (map_data.start_x_<0)
     {
@@ -168,7 +216,7 @@ void MainObject:: Mapwhenrunner(map& map_data)
         map_data.start_x_= map_data.max_x_-SCREEN_WIDTH;
     }
 
-    map_data.start_y_=y_pos_-(SCREEN_HEIGHT/2);
+    map_data.start_y_=y_pos_-(SCREEN_HEIGHT/4);
     if(map_data.start_y_<0)
     {
         map_data.start_y_=0;
@@ -201,10 +249,18 @@ void MainObject::CheckToMap(map& map_data)
            if(map_data.tile[y1][x2]!=BLANK_TILE|| map_data.tile[y2][x2]!=BLANK_TILE)
            {
                x_pos_ =x2*TILE_SIZE;
-               x_pos_-=(width_frame_+1);
+               x_pos_-=width_frame_+1;
                x_val_=0;
-           }
 
+           }
+           else if(x_val_<0)
+            {
+                if(map_data.tile[y1][x1]!=BLANK_TILE|| map_data.tile[y2][x1]!=BLANK_TILE)
+                {
+                    x_pos_=(x1+1)*TILE_SIZE;
+                    x_val_=0;
+                }
+            }
 
        }
    }
@@ -227,7 +283,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
               y_pos_=y2*TILE_SIZE;
               y_pos_ -=(height_frame_+1);
               y_val_=0;
-              on_ground_=true;//nhân vật chưa chạm đến màn hình do hình ảnh góc thừa khoảng trắng
+            on_ground_=true;//nhân vật chưa chạm đến màn hình do hình ảnh góc thừa khoảng trắng
 
           }
       }
