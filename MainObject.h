@@ -1,7 +1,9 @@
 #ifndef MAIN_OBJECT_H
 #define MAIN_OBJECT_H
+#include<vector>
 #include "CommonFunc.h"
 #include "BaseObject.h"
+#include"BulletObject.h"
 
 #define PLAYERJUMPVALUE 20
 #define MAX_FALL_SPEED 10
@@ -27,12 +29,18 @@ public:
 
     void Mapwhenrunner(map& map_data);
 
+    void setbulletlist(std::vector<BulletObject*>bullet_list)
+    {
+        bullet_list_=bullet_list;
+    }
+    std:: vector<BulletObject*>get_bullet_list()const{return bullet_list_;}
+     void  HandleBullet(SDL_Renderer* des);
+    void increasemoney();
 private:
+    int moneycount ;
+    std::vector<BulletObject*>bullet_list_;
     float x_val_;
     float y_val_;
-
-
-
 
     float x_pos_;
     float y_pos_;
@@ -48,6 +56,8 @@ private:
 
     int map_x_;
     int map_y_;
+
+    int come_back_time_;
 
 };
 

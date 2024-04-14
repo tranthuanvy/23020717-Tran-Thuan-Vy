@@ -17,6 +17,7 @@ void Timer::start()
 {
     is_started_=true;
     is_paused_=false;
+
     start_tick_= SDL_GetTicks();
 }
 

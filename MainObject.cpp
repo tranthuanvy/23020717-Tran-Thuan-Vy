@@ -3,7 +3,7 @@
 MainObject::MainObject ()
 {
     frame_=0;
-    x_pos_=200;
+    x_pos_=0;
     y_pos_=0;
     x_val_=0;
     y_val_=0;
@@ -13,12 +13,14 @@ MainObject::MainObject ()
     input_type_.right_=0;
     /*input_type_.left_=0;
     input_type_.down_=0;
-    input_type_.up_=0;
-    input_type_.jump_=0;*/
-     //on_ground_ =false;
+    input_type_.up_=0;*/
+    input_type_.jump_=0;
+     on_ground_ =false;
     map_x_  =0;
     map_y_ =0;
-    on_ground_=false;
+    //come_back_time_=0;
+    moneycount =0;
+
 }
 MainObject::~MainObject ()
 {
@@ -30,6 +32,10 @@ bool MainObject:: LoadImg(const std::string& path,SDL_Renderer* screen)
     bool ret =BaseObject::LoadImg(path,screen);
     if(ret == true){
         width_frame_ =rect_.w/8;
+
+
+
+
         height_frame_=rect_.h;
     }
     return ret ;
@@ -84,11 +90,11 @@ void MainObject:: set_clips()
 }
 void MainObject::Show (SDL_Renderer* des)
 {
-    if(on_ground_==true)
-    {
+   // if(on_ground_==true)
+   // {
       if(status_==WALK_RIGHT)
     {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
-    }
+   // }
 
 
     if(input_type_.right_==1)
@@ -97,8 +103,6 @@ void MainObject::Show (SDL_Renderer* des)
     }
     else
     {
-
-
         frame_=0;
     }
     if(frame_>=8)
@@ -120,17 +124,18 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
     {
         switch(events.key.keysym.sym)
         {
-        case SDLK_RIGHT :
-            {  status_=WALK_RIGHT;
-              input_type_.right_=1;
-              if(on_ground_==true)
+        case SDLK_LEFT :
+            {
+              status_=WALK_LEFT;
+              input_type_.left_=1;
+             /* if(on_ground_==true)
               {
                   LoadImg("C:/Users/Admin/Pictures/animal.PNG",screen);
               }
               else
                 {
                 LoadImg("C:/Users/Admin/Pictures/anhtinh.png",screen);
-                }
+                }*/
             }
             break;
 
@@ -156,16 +161,53 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
         }
     }
 
-   /* if(events.type==SDL_MOUSEBUTTONDOWN)
+
+    if(events.type==SDL_MOUSEBUTTONDOWN)
     {
-        if(events.button.button==SDL_BUTTON_RIGHT)
+        if(events.button.button==SDL_BUTTON_LEFT)
         {
-             input_type_.jump_=1;
+           BulletObject* p_bullet=new BulletObject();
+           p_bullet->LoadImg("C:/Users/Admin/Pictures/fire.png",screen);
+           p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao lisy
+           p_bullet->set_x_val(20);
+           p_bullet->set_is_move(true); //cho phep ban
+
+         bullet_list_.push_back(p_bullet);
+
         }
-    }*/
+    }
 
 
 }
+void MainObject:: HandleBullet(SDL_Renderer* des)
+{
+    for(int i=0;i<bullet_list_.size();i++)
+    {
+        BulletObject* p_bullet = bullet_list_.at(i);
+        if(p_bullet!=NULL)
+        {
+            if(p_bullet->get_is_move()==true)
+            {
+                p_bullet->HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);
+                p_bullet->renderTexture(des);
+            }
+            else
+            {
+                bullet_list_.erase(bullet_list_.begin()+i);
+                if(p_bullet!=NULL)
+                {
+                delete p_bullet;
+                p_bullet=NULL;
+            }
+        }
+    }
+}
+
+}
+ void MainObject:: increasemoney()
+ {
+     moneycount++;
+ }
 void MainObject::DoPlayer(map& map_data)
 {
     x_val_=0;
@@ -176,11 +218,10 @@ void MainObject::DoPlayer(map& map_data)
         y_val_= MAX_FALL_SPEED;
     }
 
-    if(input_type_.right_==1)
+    if(input_type_.left_==1)
     {
         x_val_+=PLAYER_SPEED;
     }
-
 
 
        if(input_type_.jump_==1)
@@ -188,17 +229,17 @@ void MainObject::DoPlayer(map& map_data)
 
           if(on_ground_==true)
           {
+           y_val_=-PLAYERJUMPVALUE;
+          }
+          on_ground_=false;
 
-            y_val_=-PLAYERJUMPVALUE;
-           }
 
             input_type_.jump_=0;
         }
 
 
+CheckToMap(map_data);
 
-
-    CheckToMap(map_data);
     Mapwhenrunner(map_data);
 }
 
@@ -234,6 +275,8 @@ void MainObject::CheckToMap(map& map_data)
    int y1=0;
    int y2=0;
 
+
+
    int height_min = height_frame_< TILE_SIZE ? height_frame_:TILE_SIZE;
 
    x1= (x_pos_ + x_val_)/TILE_SIZE;
@@ -246,24 +289,30 @@ void MainObject::CheckToMap(map& map_data)
    {
        if(x_val_>0)// moving to right
        {
-           if(map_data.tile[y1][x2]!=BLANK_TILE|| map_data.tile[y2][x2]!=BLANK_TILE)
+           int val1=map_data.tile[y1][x2];
+           int val2= map_data.tile[y2][x2];
+
+           if(val1== COIN_TILE|| val2 ==COIN_TILE)// an coin
+           {
+               map_data.tile[y1][x2] =BLANK_TILE;
+               map_data.tile[y2][x2] =BLANK_TILE;
+               increasemoney();
+           }
+           else
+           {
+            if(val1!=BLANK_TILE|| val2!=BLANK_TILE)
            {
                x_pos_ =x2*TILE_SIZE;
                x_pos_-=width_frame_+1;
                x_val_=0;
 
            }
-           else if(x_val_<0)
-            {
-                if(map_data.tile[y1][x1]!=BLANK_TILE|| map_data.tile[y2][x1]!=BLANK_TILE)
-                {
-                    x_pos_=(x1+1)*TILE_SIZE;
-                    x_val_=0;
-                }
-            }
+           }
 
-       }
-   }
+
+           }}
+
+
 //check vertical
 
 int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
@@ -278,7 +327,17 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
   {
       if(y_val_>0)//roi tu do
       {
-          if(map_data.tile[y2][x1]!=BLANK_TILE|| map_data.tile[y2][x2]!=BLANK_TILE)
+          int val1=map_data.tile[y2][x1];
+          int val2=  map_data.tile[y2][x2];
+          if (val1== COIN_TILE||val2==COIN_TILE)
+          {
+             map_data.tile[y2][x1]=BLANK_TILE;
+              map_data.tile[y2][x2] =BLANK_TILE;
+              increasemoney();
+          }
+          else
+          {
+               if(val1!=BLANK_TILE|| val2!=BLANK_TILE)
           {
               y_pos_=y2*TILE_SIZE;
               y_pos_ -=(height_frame_+1);
@@ -287,15 +346,27 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
 
           }
       }
+          }
+
     else if(y_val_<0)
     {
-            if(map_data.tile[y1][x1]!=BLANK_TILE|| map_data.tile[y1][x2]!=BLANK_TILE)
+          int val1=map_data.tile[y1][x1];
+          int val2=map_data.tile[y1][x2];
+
+          if(val1==COIN_TILE||val2==COIN_TILE)
+          {
+             map_data.tile[y1][x1]=BLANK_TILE;
+              map_data.tile[y1][x2] =BLANK_TILE;
+              increasemoney();
+          }
+          else{
+            if(val1!=BLANK_TILE|| val2!=BLANK_TILE)
             {
                 y_pos_=(y1+1)*TILE_SIZE;
                 y_val_=0;
             }
-
-    }
+          }
+          }
   }
   x_pos_+=x_val_;
   y_pos_+=y_val_;
@@ -304,6 +375,7 @@ if(x_pos_+width_frame_>map_data.max_x_)
 {
     x_pos_=map_data.max_x_-width_frame_-1;// tru sai so
 }
+
 }
 
 

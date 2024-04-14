@@ -33,6 +33,8 @@
 		</Compiler>
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
+		<Unit filename="BulletObject.cpp" />
+		<Unit filename="BulletObject.h" />
 		<Unit filename="CommonFunc.cpp" />
 		<Unit filename="CommonFunc.h" />
 		<Unit filename="GameMap.cpp" />

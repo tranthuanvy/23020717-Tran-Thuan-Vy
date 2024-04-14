@@ -117,6 +117,8 @@ int main(int argc, char* args[])
 
      map map_data=game_map.getMap();
 
+
+     character_game.HandleBullet(gRenderer);
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
     character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
      character_game.Show(gRenderer);
