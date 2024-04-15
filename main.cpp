@@ -3,6 +3,7 @@
 #include "GameMap.h"
 #include"MainObject.h"
 #include"Timer.h"
+#include"ThreatObject.h"
 BaseObject g_background;
 bool init() {
 
@@ -76,6 +77,36 @@ bool loadbkground()
     IMG_Quit();
     SDL_Quit();
  }
+ std::vector<ThreatObject*>MakeThreatList()
+ {
+     std::vector<ThreatObject*>list_threat;
+     ThreatObject* threatobject= new ThreatObject[20];
+     for(int i=0;i<20;i++)
+     {
+         ThreatObject* p_threat=(threatobject+i);
+         if(p_threat!=NULL)
+         {
+             p_threat->LoadImg("C:/Users/Admin/Pictures/threatobject.png",gRenderer);
+             p_threat->set_clips();
+             p_threat->setxpos(800+i*1200);
+             p_threat->setypos(250);
+             list_threat.push_back(p_threat);
+         }
+     }
+     return list_threat;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
 int main(int argc, char* args[])
 {
     Timer time;
@@ -97,6 +128,9 @@ int main(int argc, char* args[])
    MainObject character_game;
    character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
    character_game.set_clips();
+
+   std::vector<ThreatObject*>threat_list =MakeThreatList();
+
    bool quit = false;
    while (!quit)
     {
@@ -125,6 +159,17 @@ int main(int argc, char* args[])
 
      game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
      game_map.DrawMap(gRenderer);
+
+     for(int i=0;i<threat_list.size();i++)
+     {
+         ThreatObject* p_threat= threat_list.at(i);
+         if(p_threat!=NULL)
+         {
+             p_threat->SetMapxy(map_data.start_x_,map_data.start_y_);
+             p_threat->DoPlayer(map_data);
+             p_threat->Show(gRenderer);
+         }
+     }
 
       SDL_RenderPresent(gRenderer);
 

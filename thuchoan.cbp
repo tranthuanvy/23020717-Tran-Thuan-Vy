@@ -41,6 +41,8 @@
 		<Unit filename="GameMap.h" />
 		<Unit filename="MainObject.cpp" />
 		<Unit filename="MainObject.h" />
+		<Unit filename="ThreatObject.cpp" />
+		<Unit filename="ThreatObject.h" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.h" />
 		<Unit filename="main.cpp" />

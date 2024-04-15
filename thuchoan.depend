@@ -1,26 +1,28 @@
 # depslib dependency file v1.0
-1712940919 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713187345 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
 	"MainObject.h"
 	"Timer.h"
+	"ThreatObject.h"
 
 1712428274 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
 
-1713101166 c:\users\admin\desktop\thuchoan\commonfunc.h
+1713122304 c:\users\admin\desktop\thuchoan\commonfunc.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
 	<string>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
+	<vector>
 
-1712742917 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
+1713181302 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
 	"BaseObject.h"
 
-1712477922 c:\users\admin\desktop\thuchoan\baseobject.h
+1713181302 c:\users\admin\desktop\thuchoan\baseobject.h
 	"CommonFunc.h"
 
 1712677891 source:c:\users\admin\desktop\thuchoan\gamemap.cpp
@@ -39,7 +41,7 @@
 	"BaseObject.h"
 	"BulletObject.h"
 
-1713093134 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+1713101454 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
 1712871642 source:c:\users\admin\desktop\thuchoan\timer.cpp
@@ -48,7 +50,7 @@
 1712739785 c:\users\admin\desktop\thuchoan\timer.h
 	"CommonFunc.h"
 
-1713091897 c:\users\admin\desktop\thuchoan\bulletobject.h
+1713107013 c:\users\admin\desktop\thuchoan\bulletobject.h
 	"CommonFunc.h"
 	"BaseObject.h"
 
@@ -56,4 +58,11 @@
 
 1712942090 source:c:\users\admin\desktop\thuchoan\bulletobject.cpp
 	"BulletObject.h"
+
+1713181302 source:c:\users\admin\desktop\thuchoan\threatobject.cpp
+	"ThreatObject.h"
+
+1713181302 c:\users\admin\desktop\thuchoan\threatobject.h
+	"CommonFunc.h"
+	"BaseObject.h"
 

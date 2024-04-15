@@ -19,8 +19,7 @@ public:
      bool get_is_move() const {return is_move_;}
 
      void HandleMove(const int& x_border,const int& y_border);
-
-     private:
+private:
     int x_val_;
     int y_val_;
     bool is_move_;
