@@ -23,6 +23,7 @@ bool ThreatObject::LoadImg(std::string path,SDL_Renderer* screen)
     {
         width_frame_=rect_.w/ThreatFrameNum;
         height_frame_=rect_.h;
+
     }
     return ret;
 }
@@ -96,7 +97,7 @@ void ThreatObject:: Show(SDL_Renderer* des)
 void ThreatObject::DoPlayer(map& map_data)
 {
     x_val_=0;
-    x_val_-=1;
+
     y_val_+=0.8; //0.8:GRAVITY_SPEED
 
     if(y_val_>=MAX_FALL_SPEED)
@@ -131,9 +132,10 @@ void ThreatObject::CheckToMap(map& map_data)
    {
        if(x_val_>0)// moving to right
        {
+          int val1=  map_data.tile[y1][x2];
+          int val2=  map_data.tile[y2][x2];
 
-
-            if((map_data.tile[y1][x2]!=BLANK_TILE &&map_data.tile[y1][x2]!=COIN_TILE)||( map_data.tile[y2][x2]!=BLANK_TILE&&map_data.tile[y2][x2]!=COIN_TILE))
+            if((val1!=BLANK_TILE &&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
 
            {
                x_pos_ =x2*TILE_SIZE;
@@ -164,7 +166,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
           int val1=map_data.tile[y2][x1];
           int val2=  map_data.tile[y2][x2];
 
-               if((val1!=BLANK_TILE&&val1!=COIN_TILE)|| (val2!=BLANK_TILE&&val2!=COIN_TILE))
+               if((val1!=BLANK_TILE&&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)|| (val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
           {
               y_pos_=y2*TILE_SIZE;
               y_pos_ -=(height_frame_+1);
@@ -181,7 +183,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
           int val2=map_data.tile[y1][x2];
 
 
-            if((val1!=BLANK_TILE&&val2!=COIN_TILE)||( val2!=BLANK_TILE&&val2!=COIN_TILE))
+            if((val1!=BLANK_TILE&&val2!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
             {
                 y_pos_=(y1+1)*TILE_SIZE;
                 y_val_=0;
@@ -198,8 +200,52 @@ if(x_pos_+width_frame_>map_data.max_x_)
 }
 
 }
+void ThreatObject::InitBullet(BulletObject* p_bullet,SDL_Renderer* screen)
+{
+    if(p_bullet!=NULL)
+    {
+        p_bullet->set_bullet_type(BulletObject::SPHERE_BULLET);
+        bool ret = p_bullet->LoadImgBullet(screen);
+        if(ret)
+       {
+        p_bullet->set_is_move(true);
+        p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
+        p_bullet->SetRect(rect_.x+5,rect_.y+10);
+        p_bullet->set_x_val(15);
+        list_bullet_.push_back(p_bullet);
+       }
 
+    }
+}
 
+void ThreatObject::MakeBullet(SDL_Renderer* screen,const int& x_limit,const int& y_limit)
+{
+    for(int i=0;i< list_bullet_.size();i++)
+    {
+        BulletObject*p_bullet=list_bullet_.at(i);
+        if(p_bullet!=NULL)
+        {
+            if(p_bullet->get_is_move())
+            {
+                int bullet_distance=rect_.x+width_frame_-p_bullet->GetRect().x;
+                if(bullet_distance<300&& bullet_distance>0)
+                {
+                   p_bullet->HandleMove(x_limit,y_limit);
+                p_bullet->renderTexture(screen);
+                }
+                else
+                {
+                    p_bullet->set_is_move(false);
+                }
+            }
+            else//khi vien dan qua ma hinh
+            {
+               p_bullet->set_is_move(true) ;
+               p_bullet->SetRect(rect_.x+5,rect_.y+10);
+            }
+        }
+    }
+}
 
 
 

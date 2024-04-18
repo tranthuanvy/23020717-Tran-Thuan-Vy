@@ -92,12 +92,12 @@ void MainObject::Show (SDL_Renderer* des)
 {
    // if(on_ground_==true)
    // {
-      if(status_==WALK_RIGHT)
+      if(status_==WALK_LEFT)
     {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
    // }
 
 
-    if(input_type_.right_==1)
+    if(input_type_.left_==1)
     {
         frame_++;
     }
@@ -167,17 +167,25 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
         if(events.button.button==SDL_BUTTON_LEFT)
         {
            BulletObject* p_bullet=new BulletObject();
-           p_bullet->LoadImg("C:/Users/Admin/Pictures/fire.png",screen);
-           p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao lisy
+           p_bullet->set_bullet_type(BulletObject::FIRE_BULLET);
+           p_bullet->LoadImgBullet(screen);
+          // if(status_==WALK_RIGHT)
+          // {
+              p_bullet->set_bullet_dir(BulletObject::DIR_RIGHT);
+              p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao lisy
+
+
            p_bullet->set_x_val(20);
+           p_bullet->set_y_val(20);
            p_bullet->set_is_move(true); //cho phep ban
 
-         bullet_list_.push_back(p_bullet);
+          bullet_list_.push_back(p_bullet);
 
-        }
+       // }
     }
 
 
+}
 }
 void MainObject:: HandleBullet(SDL_Renderer* des)
 {

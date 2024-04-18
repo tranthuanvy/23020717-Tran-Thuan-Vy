@@ -90,6 +90,9 @@ bool loadbkground()
              p_threat->set_clips();
              p_threat->setxpos(800+i*1200);
              p_threat->setypos(250);
+
+             BulletObject*p_bullet=new BulletObject();
+             p_threat->InitBullet(p_bullet,gRenderer);
              list_threat.push_back(p_threat);
          }
      }
@@ -155,6 +158,7 @@ int main(int argc, char* args[])
      character_game.HandleBullet(gRenderer);
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
     character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
+
      character_game.Show(gRenderer);
 
      game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
@@ -166,7 +170,9 @@ int main(int argc, char* args[])
          if(p_threat!=NULL)
          {
              p_threat->SetMapxy(map_data.start_x_,map_data.start_y_);
+
              p_threat->DoPlayer(map_data);
+             p_threat->MakeBullet(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);
              p_threat->Show(gRenderer);
          }
      }
@@ -188,6 +194,17 @@ int main(int argc, char* args[])
     }
 
   }
+
+  for(int i=0;i<threat_list.size();i++)
+  {
+      ThreatObject* p_threat=threat_list.at(i);
+      if(p_threat!=NULL)
+      {
+          p_threat->Free();
+          p_threat=NULL;
+      }
+  }
+  threat_list.clear();
 
   // Dọn dẹp
   close();

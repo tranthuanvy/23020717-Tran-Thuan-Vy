@@ -22,6 +22,10 @@ static SDL_Event e;
 #define MAX_MAP_X 400
 #define MAX_MAP_Y 10
 #define COIN_TILE 5
+#define OSTACLE1 4
+#define OSTACLE2 3
+
+
 typedef struct Input
 {
     int left_;

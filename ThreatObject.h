@@ -2,6 +2,8 @@
 #define THREAT_OBJECT_H_
 #include"CommonFunc.h"
 #include"BaseObject.h"
+#include"BulletObject.h"
+
 #define MAX_FALL_SPEED 10
 #define ThreatFrameNum 8
 class ThreatObject : public BaseObject
@@ -9,6 +11,7 @@ class ThreatObject : public BaseObject
 public:
     ThreatObject();
     ~ThreatObject();
+
     void setxval(const float& xval){x_val_=xval;}
     void setyval(const float& yval){y_val_=yval;}
     void setxpos(const float& xpos){x_pos_=xpos;}
@@ -24,6 +27,13 @@ public:
     int getheightframe()const{return height_frame_;}
     void DoPlayer(map& map_data);
     void CheckToMap(map& map_data);
+
+    std:: vector<BulletObject*>get_bullet_list()const{return list_bullet_;}
+    void set_bullet_list(const std::vector<BulletObject*>&bl_list){list_bullet_=bl_list;}
+    void InitBullet(BulletObject* p_bullet,SDL_Renderer* screen);
+    void MakeBullet(SDL_Renderer*screen ,const int& x_limit,const int& y_limit);
+    //void set_type_move(const int& typeMove){type_move_=typeMove;}
+    //void set_input_left(const int& ipLeft){input_type_.left_=}
 private:
     SDL_Rect frame_clip_[ThreatFrameNum];
     int width_frame_;
@@ -37,6 +47,10 @@ private:
     int map_x_;
     int map_y_;
     int come_back_time_;
+    //int type_move_;
+   // Input input_type_;
+
+    std::vector<BulletObject*>list_bullet_;
 };
 
 #endif // THREAT_OBJECT_H_
