@@ -140,7 +140,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             break;
 
         }
-    }/*else if(events.type== SDL_KEYUP)
+    }else if(events.type== SDL_KEYUP)
     {
         switch(events.key.keysym.sym)
         {
@@ -152,7 +152,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             break;
 
         }
-    }*/
+    }
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
@@ -181,12 +181,15 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 
           bullet_list_.push_back(p_bullet);
 
-       // }
+        }
     }
 
 
 }
-}
+
+
+
+
 void MainObject:: HandleBullet(SDL_Renderer* des)
 {
     for(int i=0;i<bullet_list_.size();i++)
@@ -249,6 +252,21 @@ void MainObject::DoPlayer(map& map_data)
 CheckToMap(map_data);
 
     Mapwhenrunner(map_data);
+}
+
+void MainObject::RemoveBullet(const int& index)
+{
+    int size =bullet_list_.size();
+    if(size>0&&index<size)
+    {
+        BulletObject* p_bullet =bullet_list_.at(index);
+        bullet_list_.erase(bullet_list_.begin()+index);
+        if(p_bullet!=NULL)
+        {
+            delete p_bullet;
+            p_bullet=NULL;
+        }
+    }
 }
 
 void MainObject:: Mapwhenrunner(map& map_data)

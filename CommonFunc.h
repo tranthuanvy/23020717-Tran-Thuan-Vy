@@ -47,6 +47,9 @@ typedef struct map
     int tile[MAX_MAP_Y][MAX_MAP_X];
     char* file_name_;
 } ;
-
+namespace SDLCommonFunc
+{
+    bool CheckCollision(const SDL_Rect& object1,const SDL_Rect& object2);
+}
 
 #endif // COMMON_FUNC_H_

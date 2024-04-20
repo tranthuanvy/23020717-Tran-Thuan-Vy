@@ -34,6 +34,7 @@ public:
         bullet_list_=bullet_list;
     }
     std:: vector<BulletObject*>get_bullet_list()const{return bullet_list_;}
+    void RemoveBullet(const int& index);
      void  HandleBullet(SDL_Renderer* des);
     void increasemoney();
 private:

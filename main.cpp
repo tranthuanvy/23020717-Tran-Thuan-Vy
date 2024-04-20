@@ -176,6 +176,39 @@ int main(int argc, char* args[])
              p_threat->Show(gRenderer);
          }
      }
+     std::vector<BulletObject*>bullet_arr= character_game.get_bullet_list();
+     for(int b=0;b<bullet_arr.size();b++)
+     {
+         BulletObject* p_bullet=bullet_arr.at(b);
+         if(p_bullet!=NULL)
+         {
+             for(int t=0;t<threat_list.size(); )
+             {
+                 ThreatObject* threatobj= threat_list.at(t);
+                 if(threatobj!=NULL)
+                 {
+                     SDL_Rect tRect;
+                     tRect.x=threatobj->GetRect().x;
+                     tRect.y=threatobj->GetRect().y;
+                     tRect.w=threatobj->getwidthframe();
+                     tRect.h=threatobj->getheightframe();// lay 1 frame thoi
+
+                     SDL_Rect bRect= p_bullet->GetRect();
+                     bool bCol=SDLCommonFunc::CheckCollision(bRect,tRect);
+                     if(bCol)
+                     {
+                       character_game.RemoveBullet(b);
+                        threatobj->Free();
+                       threat_list.erase(threat_list.begin()+t);
+                        continue;
+                 }
+             }
+             t++;
+         }
+     }
+
+     }
+
 
       SDL_RenderPresent(gRenderer);
 
