@@ -1,6 +1,7 @@
 #ifndef COMMON_FUNC_H_
 #define COMMON_FUNC_H_
 
+#include <Windows.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>

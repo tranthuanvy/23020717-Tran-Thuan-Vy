@@ -99,17 +99,6 @@ bool loadbkground()
      return list_threat;
  }
 
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char* args[])
 {
     Timer time;
@@ -125,40 +114,38 @@ int main(int argc, char* args[])
   }
 
     GameMap game_map;
-     game_map.LoadMap("map/map01.txt");    // Sử dụng trực tiếp kiểu const char**/
-   game_map.LoadTiles(gRenderer);
+    game_map.LoadMap("map/map01.txt");    // Sử dụng trực tiếp kiểu const char**/
+    game_map.LoadTiles(gRenderer);
 
-   MainObject character_game;
-   character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
-   character_game.set_clips();
+    MainObject character_game;
+    character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
+    character_game.set_clips();
 
    std::vector<ThreatObject*>threat_list =MakeThreatList();
 
    bool quit = false;
    while (!quit)
     {
-        time.start();
-    while (SDL_PollEvent(&e) != 0)
-    {
-      if (e.type == SDL_QUIT) {
-        quit = true;
-        break;
-      }
-      character_game.HandelInputAction(e,gRenderer);
+       time.start();
+       while (SDL_PollEvent(&e) != 0)
+         {
+             if (e.type == SDL_QUIT) {
+             quit = true;
+              break;
+         }
+             character_game.HandelInputAction(e,gRenderer);
     }
 
       SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
       SDL_RenderClear(gRenderer);
       g_background.renderTexture(gRenderer,NULL);
 
-     map map_data=game_map.getMap();
+      map map_data=game_map.getMap();
 
 
      character_game.HandleBullet(gRenderer);
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
-    character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
-
+     character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
      character_game.Show(gRenderer);
 
      game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
@@ -170,10 +157,38 @@ int main(int argc, char* args[])
          if(p_threat!=NULL)
          {
              p_threat->SetMapxy(map_data.start_x_,map_data.start_y_);
-
              p_threat->DoPlayer(map_data);
              p_threat->MakeBullet(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);
              p_threat->Show(gRenderer);
+
+             SDL_Rect rect_player= character_game.GetRectFrame();
+             bool bCol1=false;
+             std::vector<BulletObject*>tBullet_list=p_threat->get_bullet_list();
+             for(int j=0;j<tBullet_list.size();j++)
+             {
+                 BulletObject* pt_bullet=tBullet_list.at(j);
+                 if(pt_bullet)
+                 {
+                     bCol1=SDLCommonFunc::CheckCollision(pt_bullet->GetRect(),rect_player);
+                     if(bCol1)
+                     {
+                         p_threat->RemoveBullet(j);
+                         break;//không kiểm tra các viên đạn khác
+                     }
+                 }
+             }
+             SDL_Rect rect_threat=p_threat->GetRectFrame();
+             bool bCol2=SDLCommonFunc::CheckCollision(rect_player,rect_threat);
+            if(bCol1||bCol2)
+             {
+                if (MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                 {
+                    p_threat->Free() ;
+                    close();
+
+                    return 0 ;
+                 }
+             }
          }
      }
      std::vector<BulletObject*>bullet_arr= character_game.get_bullet_list();
@@ -182,7 +197,7 @@ int main(int argc, char* args[])
          BulletObject* p_bullet=bullet_arr.at(b);
          if(p_bullet!=NULL)
          {
-             for(int t=0;t<threat_list.size(); )
+             for(int t=0;t<threat_list.size();t++ )
              {
                  ThreatObject* threatobj= threat_list.at(t);
                  if(threatobj!=NULL)
@@ -198,17 +213,16 @@ int main(int argc, char* args[])
                      if(bCol)
                      {
                        character_game.RemoveBullet(b);
-                        threatobj->Free();
+                       threatobj->Free();
                        threat_list.erase(threat_list.begin()+t);
-                        continue;
-                 }
+
+                     }
+
+                }
              }
-             t++;
+
          }
      }
-
-     }
-
 
       SDL_RenderPresent(gRenderer);
 

@@ -41,6 +41,18 @@ bool MainObject:: LoadImg(const std::string& path,SDL_Renderer* screen)
     return ret ;
 }
 
+SDL_Rect MainObject:: GetRectFrame()
+{
+    SDL_Rect rect;
+    rect.x=rect_.x;
+    rect.y=rect_.y;
+    rect.w=width_frame_;
+    rect.h=height_frame_;
+
+    return rect;
+
+}
+
 void MainObject:: set_clips()
 {
     if(width_frame_>0&& height_frame_>0)
@@ -92,12 +104,12 @@ void MainObject::Show (SDL_Renderer* des)
 {
    // if(on_ground_==true)
    // {
-      if(status_==WALK_LEFT)
+      if(status_==WALK_RIGHT)
     {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
    // }
 
 
-    if(input_type_.left_==1)
+    if(input_type_.right_==1)
     {
         frame_++;
     }
@@ -124,10 +136,10 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
     {
         switch(events.key.keysym.sym)
         {
-        case SDLK_LEFT :
+        case SDLK_RIGHT :
             {
-              status_=WALK_LEFT;
-              input_type_.left_=1;
+              status_=WALK_RIGHT;
+              input_type_.right_=1;
              /* if(on_ground_==true)
               {
                   LoadImg("C:/Users/Admin/Pictures/animal.PNG",screen);
@@ -140,7 +152,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             break;
 
         }
-    }else if(events.type== SDL_KEYUP)
+    }/*else if(events.type== SDL_KEYUP)
     {
         switch(events.key.keysym.sym)
         {
@@ -152,7 +164,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             break;
 
         }
-    }
+    }*/
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
@@ -169,14 +181,15 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
            BulletObject* p_bullet=new BulletObject();
            p_bullet->set_bullet_type(BulletObject::FIRE_BULLET);
            p_bullet->LoadImgBullet(screen);
-          // if(status_==WALK_RIGHT)
-          // {
-              p_bullet->set_bullet_dir(BulletObject::DIR_RIGHT);
-              p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao lisy
+           if(status_==WALK_RIGHT)
+            {
+                p_bullet-> set_bullet_dir(BulletObject::DIR_RIGHT);
+                p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao list
 
+            }
 
            p_bullet->set_x_val(20);
-           p_bullet->set_y_val(20);
+
            p_bullet->set_is_move(true); //cho phep ban
 
           bullet_list_.push_back(p_bullet);
@@ -219,6 +232,22 @@ void MainObject:: HandleBullet(SDL_Renderer* des)
  {
      moneycount++;
  }
+
+ void MainObject::RemoveBullet(const int& index)
+{
+    int size =bullet_list_.size();
+    if(size>0&&index<size)
+    {
+        BulletObject* p_bullet =bullet_list_.at(index);
+        bullet_list_.erase(bullet_list_.begin()+index);
+        if(p_bullet!=NULL)
+        {
+            delete p_bullet;
+            p_bullet=NULL;
+        }
+    }
+}
+
 void MainObject::DoPlayer(map& map_data)
 {
     x_val_=0;
@@ -229,7 +258,7 @@ void MainObject::DoPlayer(map& map_data)
         y_val_= MAX_FALL_SPEED;
     }
 
-    if(input_type_.left_==1)
+    if(input_type_.right_==1)
     {
         x_val_+=PLAYER_SPEED;
     }
@@ -254,20 +283,7 @@ CheckToMap(map_data);
     Mapwhenrunner(map_data);
 }
 
-void MainObject::RemoveBullet(const int& index)
-{
-    int size =bullet_list_.size();
-    if(size>0&&index<size)
-    {
-        BulletObject* p_bullet =bullet_list_.at(index);
-        bullet_list_.erase(bullet_list_.begin()+index);
-        if(p_bullet!=NULL)
-        {
-            delete p_bullet;
-            p_bullet=NULL;
-        }
-    }
-}
+
 
 void MainObject:: Mapwhenrunner(map& map_data)
 {

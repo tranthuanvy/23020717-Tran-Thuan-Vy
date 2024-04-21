@@ -23,11 +23,11 @@ public:
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
     void set_clips();
 
-    void CheckToMap(map& map_data);
     void DoPlayer(map& map_data);
+    void CheckToMap(map& map_data);
     void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;};//tinh toan gia tri x, y mep ban do
-
     void Mapwhenrunner(map& map_data);
+    SDL_Rect GetRectFrame();
 
     void setbulletlist(std::vector<BulletObject*>bullet_list)
     {
@@ -35,7 +35,7 @@ public:
     }
     std:: vector<BulletObject*>get_bullet_list()const{return bullet_list_;}
     void RemoveBullet(const int& index);
-     void  HandleBullet(SDL_Renderer* des);
+    void  HandleBullet(SDL_Renderer* des);
     void increasemoney();
 private:
     int moneycount ;
@@ -57,8 +57,6 @@ private:
 
     int map_x_;
     int map_y_;
-
-    int come_back_time_;
 
 };
 

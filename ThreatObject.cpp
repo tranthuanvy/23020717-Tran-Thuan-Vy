@@ -9,7 +9,6 @@ ThreatObject::ThreatObject()
     x_pos_=0;
     y_pos_=0;
     on_ground_=0;
-    come_back_time_=0;
     frame_=0;
 }
 ThreatObject::~ThreatObject()
@@ -26,6 +25,18 @@ bool ThreatObject::LoadImg(std::string path,SDL_Renderer* screen)
 
     }
     return ret;
+}
+
+SDL_Rect ThreatObject:: GetRectFrame()
+{
+    SDL_Rect rect;
+    rect.x=rect_.x;
+    rect.y=rect_.y;
+    rect.w=width_frame_;
+    rect.h=height_frame_;
+
+    return rect;
+
 }
 
 void ThreatObject:: set_clips()
@@ -78,20 +89,33 @@ void ThreatObject:: set_clips()
 
 void ThreatObject:: Show(SDL_Renderer* des)
 {
+    rect_.x=x_pos_ - map_x_;//tru di khoang cuon chieu
+    rect_.y=y_pos_ - map_y_;
+
+
      frame_++;
      if(frame_>=8)
     {
         frame_=0;
     }
-
-
-    rect_.x=x_pos_ - map_x_;//tru di khoang cuon chieu
-    rect_.y=y_pos_ - map_y_;
-
     SDL_Rect* currect_clip=&frame_clip_[frame_];
     SDL_Rect renderQuad ={ rect_.x,rect_.y,width_frame_,height_frame_};
-
     SDL_RenderCopy(des,p_object_,currect_clip,&renderQuad);
+}
+
+  void ThreatObject::RemoveBullet(const int& index)
+{
+    int size =list_bullet_.size();
+    if(size>0&&index<size)
+    {
+        BulletObject* p_bullet =list_bullet_.at(index);
+        list_bullet_.erase(list_bullet_.begin()+index);
+        if(p_bullet!=NULL)
+        {
+            delete p_bullet;
+            p_bullet=NULL;
+        }
+    }
 }
 
 void ThreatObject::DoPlayer(map& map_data)
@@ -105,7 +129,7 @@ void ThreatObject::DoPlayer(map& map_data)
         y_val_= MAX_FALL_SPEED;
     }
 
-CheckToMap(map_data);
+    CheckToMap(map_data);
 
 
 }
@@ -143,7 +167,20 @@ void ThreatObject::CheckToMap(map& map_data)
                x_val_=0;
 
            }
+        }
+        else if(x_val_<0)
+        {
+            int val1=  map_data.tile[y1][x1];
+            int val2=  map_data.tile[y2][x1];
+
+            if((val1!=BLANK_TILE &&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
+
+           {
+               x_pos_ =(x1+1)*TILE_SIZE;
+               x_val_=0;
+
            }
+        }
 
    }
 
@@ -151,13 +188,13 @@ void ThreatObject::CheckToMap(map& map_data)
 
 //check vertical
 
-int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
+   int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
 
-  x1=(x_pos_)/TILE_SIZE;
-  x2=(x_pos_+width_min)/TILE_SIZE;
+     x1=(x_pos_)/TILE_SIZE;
+     x2=(x_pos_+width_min)/TILE_SIZE;
 
-  y1=(y_pos_+y_val_)/TILE_SIZE;
-  y2=(y_pos_+y_val_+height_frame_-1)/TILE_SIZE;
+     y1=(y_pos_+y_val_)/TILE_SIZE;
+     y2=(y_pos_+y_val_+height_frame_-1)/TILE_SIZE;
 
   if(x1>=0&&x2< MAX_MAP_X && y1>=0&&y2< MAX_MAP_Y)
   {
@@ -210,7 +247,7 @@ void ThreatObject::InitBullet(BulletObject* p_bullet,SDL_Renderer* screen)
        {
         p_bullet->set_is_move(true);
         p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
-        p_bullet->SetRect(rect_.x+5,rect_.y+10);
+        p_bullet->SetRect(rect_.x+5,y_pos_ +10);
         p_bullet->set_x_val(15);
         list_bullet_.push_back(p_bullet);
        }
@@ -227,11 +264,11 @@ void ThreatObject::MakeBullet(SDL_Renderer* screen,const int& x_limit,const int&
         {
             if(p_bullet->get_is_move())
             {
-                int bullet_distance=rect_.x+width_frame_-p_bullet->GetRect().x;
+                int bullet_distance=rect_.x+ width_frame_ - p_bullet->GetRect().x;
                 if(bullet_distance<300&& bullet_distance>0)
                 {
                    p_bullet->HandleMove(x_limit,y_limit);
-                p_bullet->renderTexture(screen);
+                   p_bullet->renderTexture(screen);
                 }
                 else
                 {
@@ -241,7 +278,7 @@ void ThreatObject::MakeBullet(SDL_Renderer* screen,const int& x_limit,const int&
             else//khi vien dan qua ma hinh
             {
                p_bullet->set_is_move(true) ;
-               p_bullet->SetRect(rect_.x+5,rect_.y+10);
+               p_bullet->SetRect(rect_.x+5,y_pos_+10);
             }
         }
     }
