@@ -37,6 +37,7 @@ public:
     void RemoveBullet(const int& index);
     void  HandleBullet(SDL_Renderer* des);
     void increasemoney();
+    int GetMoneyCount()const{return moneycount;}
 private:
     int moneycount ;
     std::vector<BulletObject*>bullet_list_;

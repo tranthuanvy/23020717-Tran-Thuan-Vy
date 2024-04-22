@@ -145,7 +145,12 @@ int main(int argc, char* args[])
     TextObject time_game;
     time_game.SetColor(TextObject::RED_TEXT);
 
+    TextObject mark_game;
+    mark_game.SetColor(TextObject:: BLACK_TEXT );
+    UINT mark_value =0;
 
+    TextObject money_game;
+    money_game.SetColor(TextObject:: WHITE_TEXT);
    bool quit = false;
    while (!quit)
     {
@@ -240,6 +245,7 @@ int main(int argc, char* args[])
                      {
                        for(int i=0; i<8;i++)
                        {
+                           mark_value++;
                            int x_pos=p_bullet->GetRect().x -frameexpheight*0.5;
                            int y_pos= p_bullet->GetRect().y -frameexpheight*0.5;// đạn chạm ở đâu nổ tại đấy
 
@@ -264,7 +270,7 @@ int main(int argc, char* args[])
 
     std:: string str_time ="Time: ";
     Uint32 time_val= SDL_GetTicks()/1000;//chia 1000 đổi ra giây
-    Uint32 val_time= 20-time_val;
+    Uint32 val_time= 210-time_val;
     if(val_time<=0)
     {
          if (MessageBoxW(NULL, L"YOU WIN!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
@@ -283,6 +289,21 @@ int main(int argc, char* args[])
         time_game.RenderText(gRenderer,SCREEN_WIDTH-200,15);
     }
 
+    std::string val_str_mark =std:: to_string(mark_value);
+    std::string strMark("Mark:");
+    strMark+= val_str_mark;
+
+    mark_game.SetText(strMark);
+    mark_game.LoadRenderText(font_,gRenderer);
+    mark_game.RenderText(gRenderer,SCREEN_WIDTH*0.5-50,15);
+
+    int money_value=character_game.GetMoneyCount();
+    std::string money_str=std::to_string(money_value);
+    std::string strmoney("Coin:");
+    strmoney+=money_str;
+    money_game.SetText(strmoney);
+    money_game.LoadRenderText(font_,gRenderer);
+    money_game.RenderText(gRenderer,SCREEN_WIDTH*0.5-600,15);
 
     SDL_RenderPresent(gRenderer);
 
