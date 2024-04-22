@@ -29,11 +29,8 @@ static SDL_Event e;
 
 typedef struct Input
 {
-    int left_;
-    int right_;
-    int up_;
-    int down_;
     int jump_;
+    int right_;
 
 };
 

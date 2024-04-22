@@ -4,6 +4,7 @@
 #include"MainObject.h"
 #include"Timer.h"
 #include"ThreatObject.h"
+#include"Explosion.h"
 BaseObject g_background;
 bool init() {
 
@@ -121,7 +122,11 @@ int main(int argc, char* args[])
     character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
     character_game.set_clips();
 
-   std::vector<ThreatObject*>threat_list =MakeThreatList();
+    std::vector<ThreatObject*>threat_list =MakeThreatList();
+
+    ExplosionObject exp;
+    exp.LoadImg("C:/Users/Admin/Pictures/explosion.png",gRenderer);
+    exp.set_clip();
 
    bool quit = false;
    while (!quit)
@@ -191,6 +196,9 @@ int main(int argc, char* args[])
              }
          }
      }
+
+     int frameexpwidth= exp.get_frame_width();
+     int frameexpheight= exp.get_frame_height();
      std::vector<BulletObject*>bullet_arr= character_game.get_bullet_list();
      for(int b=0;b<bullet_arr.size();b++)
      {
@@ -212,6 +220,16 @@ int main(int argc, char* args[])
                      bool bCol=SDLCommonFunc::CheckCollision(bRect,tRect);
                      if(bCol)
                      {
+                       for(int i=0; i<8;i++)
+                       {
+                           int x_pos=p_bullet->GetRect().x -frameexpheight*0.5;
+                           int y_pos= p_bullet->GetRect().y -frameexpheight*0.5;// đạn chạm ở đâu nổ tại đấy
+
+                           exp.set_frame(i);
+                           exp.SetRect(x_pos,y_pos);
+                           exp.Show(gRenderer);
+                       }
+
                        character_game.RemoveBullet(b);
                        threatobj->Free();
                        threat_list.erase(threat_list.begin()+t);

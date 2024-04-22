@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1713726284 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713784609 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
 	"MainObject.h"
 	"Timer.h"
 	"ThreatObject.h"
+	"Explosion.h"
 
 1713454935 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
 
-1713685561 c:\users\admin\desktop\thuchoan\commonfunc.h
+1713776228 c:\users\admin\desktop\thuchoan\commonfunc.h
 	<Windows.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -42,7 +43,7 @@
 	"BaseObject.h"
 	"BulletObject.h"
 
-1713723713 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+1713776200 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
 1712871642 source:c:\users\admin\desktop\thuchoan\timer.cpp
@@ -67,4 +68,11 @@
 	"CommonFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
+
+1713776694 c:\users\admin\desktop\thuchoan\explosion.h
+	"CommonFunc.h"
+	"BaseObject.h"
+
+1713784609 source:c:\users\admin\desktop\thuchoan\explosion.cpp
+	"Explosion.h"
 
