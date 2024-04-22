@@ -5,9 +5,10 @@
 #include"Timer.h"
 #include"ThreatObject.h"
 #include"Explosion.h"
+#include"TextObject.h"
 BaseObject g_background;
+TTF_Font*font_=NULL;
 bool init() {
-
     bool success = true;
 
     // Khởi tạo SDL
@@ -25,8 +26,8 @@ bool init() {
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SCREEN_WIDTH,
-                                   SCREEN_HEIGHT,
-                                   SDL_WINDOW_SHOWN);
+                                    SCREEN_HEIGHT,
+                                    SDL_WINDOW_SHOWN);
         if (gWindow == nullptr) {
             std::cout << "Window could not be created! SDL Error: " << SDL_GetError() << std::endl;
             success = false;
@@ -47,6 +48,18 @@ bool init() {
                               << std::endl;
                     success = false;
                 }
+            }
+            // Kiểm tra lỗi khi khởi tạo SDL_ttf
+            if (TTF_Init() == -1) {
+                std::cout << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                success = false;
+            }
+
+            // Mở font
+            font_ = TTF_OpenFont("font//CastoroTitling-Regular.ttf", 15);
+            if (font_ == nullptr) {
+                std::cout << "Failed to load font! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                success = false;
             }
         }
     }
@@ -127,6 +140,11 @@ int main(int argc, char* args[])
     ExplosionObject exp;
     exp.LoadImg("C:/Users/Admin/Pictures/explosion.png",gRenderer);
     exp.set_clip();
+
+    //text
+    TextObject time_game;
+    time_game.SetColor(TextObject::RED_TEXT);
+
 
    bool quit = false;
    while (!quit)
@@ -241,8 +259,32 @@ int main(int argc, char* args[])
 
          }
      }
+      // Show game time
 
-      SDL_RenderPresent(gRenderer);
+
+    std:: string str_time ="Time: ";
+    Uint32 time_val= SDL_GetTicks()/1000;//chia 1000 đổi ra giây
+    Uint32 val_time= 20-time_val;
+    if(val_time<=0)
+    {
+         if (MessageBoxW(NULL, L"YOU WIN!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                 {
+                   quit=true;
+                   break;
+                 }
+    }
+    else
+    {
+        std::string str_val=std::to_string(val_time);
+        str_time+=str_val;
+
+        time_game.SetText(str_time);
+        time_game.LoadRenderText(font_,gRenderer);
+        time_game.RenderText(gRenderer,SCREEN_WIDTH-200,15);
+    }
+
+
+    SDL_RenderPresent(gRenderer);
 
     int real_timer= time.get_ticks();// thoi gian thuc su troi qua
     int time_one_frame =1000/*mili giay*//FRAME_PER_SECOND;
@@ -254,7 +296,7 @@ int main(int argc, char* args[])
 
       if(delay_time)
       {
-      SDL_Delay(delay_time);
+        SDL_Delay(delay_time);
       }
     }
 

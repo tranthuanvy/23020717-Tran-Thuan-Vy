@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713784609 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713796722 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -7,6 +7,7 @@
 	"Timer.h"
 	"ThreatObject.h"
 	"Explosion.h"
+	"TextObject.h"
 
 1713454935 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
@@ -75,4 +76,10 @@
 
 1713784609 source:c:\users\admin\desktop\thuchoan\explosion.cpp
 	"Explosion.h"
+
+1713795412 c:\users\admin\desktop\thuchoan\textobject.h
+	"CommonFunc.h"
+
+1713795530 source:c:\users\admin\desktop\thuchoan\textobject.cpp
+	"TextObject.h"
 
