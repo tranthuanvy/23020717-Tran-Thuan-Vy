@@ -17,6 +17,7 @@ const int FRAME_PER_SECOND =35;
 static SDL_Window * gWindow =nullptr;
 static SDL_Renderer* gRenderer = nullptr;
 static SDL_Event e;
+//static SDL_Renderer* gMenu=NULL;
 
 #define BLANK_TILE 0
 #define TILE_SIZE 64
@@ -48,6 +49,7 @@ typedef struct map
 namespace SDLCommonFunc
 {
     bool CheckCollision(const SDL_Rect& object1,const SDL_Rect& object2);
+
 }
 
 #endif // COMMON_FUNC_H_

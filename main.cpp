@@ -6,8 +6,10 @@
 #include"ThreatObject.h"
 #include"Explosion.h"
 #include"TextObject.h"
+#include"Menu.h"
 BaseObject g_background;
 TTF_Font*font_=NULL;
+TTF_Font*font_menu=NULL;
 bool init() {
     bool success = true;
 
@@ -57,7 +59,8 @@ bool init() {
 
             // Mở font
             font_ = TTF_OpenFont("font//CastoroTitling-Regular.ttf", 15);
-            if (font_ == nullptr) {
+            font_menu= TTF_OpenFont("font//dlxfont_.ttf", 50);
+            if (font_ == nullptr||font_menu==nullptr) {
                 std::cout << "Failed to load font! SDL_ttf Error: " << TTF_GetError() << std::endl;
                 success = false;
             }
@@ -152,6 +155,9 @@ int main(int argc, char* args[])
     TextObject money_game;
     money_game.SetColor(TextObject:: WHITE_TEXT);
    bool quit = false;
+    Menu myMenu;
+   int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
+
    while (!quit)
     {
        time.start();

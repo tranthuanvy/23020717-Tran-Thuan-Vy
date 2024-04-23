@@ -1,5 +1,5 @@
-
 #include "BaseObject.h"
+
  BaseObject::BaseObject()
  {
 
@@ -15,6 +15,8 @@
  {
   Free();
  }
+
+
  bool BaseObject::LoadImg( const std::string path,SDL_Renderer* gRenderer)
  {
       SDL_Texture* newTexture = nullptr;

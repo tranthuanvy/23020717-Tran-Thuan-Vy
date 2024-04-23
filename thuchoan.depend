@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713799767 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713875806 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -8,11 +8,12 @@
 	"ThreatObject.h"
 	"Explosion.h"
 	"TextObject.h"
+	"Menu.h"
 
-1713454935 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
+1713806789 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
 
-1713776228 c:\users\admin\desktop\thuchoan\commonfunc.h
+1713838727 c:\users\admin\desktop\thuchoan\commonfunc.h
 	<Windows.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -22,10 +23,10 @@
 	<SDL_ttf.h>
 	<vector>
 
-1713181302 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
+1713838727 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
 	"BaseObject.h"
 
-1713181302 c:\users\admin\desktop\thuchoan\baseobject.h
+1713869249 c:\users\admin\desktop\thuchoan\baseobject.h
 	"CommonFunc.h"
 
 1712677891 source:c:\users\admin\desktop\thuchoan\gamemap.cpp
@@ -38,13 +39,13 @@
 1712467946 c:\users\admin\desktop\thuchoan\gamemap.cpp
 	"GameMap.h"
 
-1713799401 c:\users\admin\desktop\thuchoan\mainobject.h
+1713839389 c:\users\admin\desktop\thuchoan\mainobject.h
 	<vector>
 	"CommonFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
 
-1713776200 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+1713839807 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
 1712871642 source:c:\users\admin\desktop\thuchoan\timer.cpp
@@ -77,9 +78,17 @@
 1713784609 source:c:\users\admin\desktop\thuchoan\explosion.cpp
 	"Explosion.h"
 
-1713795412 c:\users\admin\desktop\thuchoan\textobject.h
+1713840047 c:\users\admin\desktop\thuchoan\textobject.h
 	"CommonFunc.h"
+	"BaseObject.h"
 
 1713795530 source:c:\users\admin\desktop\thuchoan\textobject.cpp
 	"TextObject.h"
+
+1713875169 c:\users\admin\desktop\thuchoan\menu.h
+	"CommonFunc.h"
+	"TextObject.h"
+
+1713876693 source:c:\users\admin\desktop\thuchoan\menu.cpp
+	"Menu.h"
 

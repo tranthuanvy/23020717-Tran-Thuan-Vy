@@ -1,8 +1,9 @@
 #ifndef TEXT_OBJECT_H_
 #define TEXT_OBJECT_H_
 #include"CommonFunc.h"
+#include"BaseObject.h"
 
-class TextObject
+class TextObject:public BaseObject
 {
 public:
     TextObject();
