@@ -3,7 +3,7 @@
 
 #include"CommonFunc.h"
 #include"TextObject.h"
-#define kMenuItemNum 2
+#define kMenuItemNum 3
 
 class Menu: public BaseObject
 {
@@ -14,7 +14,7 @@ public:
 public:
 
     int ShowMenu(SDL_Renderer* des,TTF_Font* font);
-    bool CheckFocusWithRect(const int& x,const int& y,const SDL_Rect& rect);
+
 
 };
 

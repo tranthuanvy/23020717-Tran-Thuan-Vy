@@ -158,6 +158,8 @@ int main(int argc, char* args[])
    bool quit = false;
    Menu myMenu;
    int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
+   if (ret_menu == 2)
+        {quit = true;}
   if(!loadbkground()){
     std::cout<<" lỗi tại background!"<<std::endl;
     return -1;

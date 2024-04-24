@@ -42,12 +42,12 @@ void Timer::unpaused()
     {
         is_paused_=false;
         start_tick_=SDL_GetTicks()-paused_tick_;
-        paused_tick_=0;// vi neu paused lan nua no se lay thoi gian paused moi
+        paused_tick_=0;
 
     }
 }
 
-int Timer::get_ticks()//lay thoi gian troi qua
+int Timer::get_ticks()
 {
    if(is_started_==true)
    {

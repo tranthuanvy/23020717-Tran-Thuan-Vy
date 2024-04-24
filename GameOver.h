@@ -2,7 +2,7 @@
 #define GAME_OVER_H
 #include"CommonFunc.h"
 #include"TextObject.h"
-#define kMenuItemNum1 2
+#define kMenuItemNum1 3
 
 class GameOver: public BaseObject
 {
@@ -13,7 +13,7 @@ public:
 public:
 
     int ShowGameOver(SDL_Renderer* des,TTF_Font* font);
-    bool CheckFocusWithRectGameOver(const int& x,const int& y,const SDL_Rect& rect);
+
 
 };
 

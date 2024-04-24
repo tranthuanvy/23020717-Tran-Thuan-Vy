@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713990031 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713993456 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -50,7 +50,7 @@
 1713989095 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
-1712871642 source:c:\users\admin\desktop\thuchoan\timer.cpp
+1713992674 source:c:\users\admin\desktop\thuchoan\timer.cpp
 	"Timer.h"
 
 1712739785 c:\users\admin\desktop\thuchoan\timer.h
@@ -87,19 +87,19 @@
 1713927374 source:c:\users\admin\desktop\thuchoan\textobject.cpp
 	"TextObject.h"
 
-1713990053 c:\users\admin\desktop\thuchoan\menu.h
+1713994174 c:\users\admin\desktop\thuchoan\menu.h
 	"CommonFunc.h"
 	"TextObject.h"
 
-1713990102 source:c:\users\admin\desktop\thuchoan\menu.cpp
+1713994174 source:c:\users\admin\desktop\thuchoan\menu.cpp
 	"Menu.h"
 
 1713978911 c:\users\admin\desktop\thuchoan\gamestate.h
 
-1713986845 source:c:\users\admin\desktop\thuchoan\gameover.cpp
+1713994264 source:c:\users\admin\desktop\thuchoan\gameover.cpp
 	"GameOver.h"
 
-1713986846 c:\users\admin\desktop\thuchoan\gameover.h
+1713994244 c:\users\admin\desktop\thuchoan\gameover.h
 	"CommonFunc.h"
 	"TextObject.h"
 

@@ -8,65 +8,60 @@ GameOver::~GameOver()
 
 }
 
-bool GameOver:: CheckFocusWithRectGameOver(const int& x,const int& y,const SDL_Rect& rect)
-{
-    if(y>=350&& y<=400&&x>=SCREEN_WIDTH*0.5-210&&x<= SCREEN_WIDTH*0.5+150)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
+
 
 int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
 {
-    bool ret= LoadImg("C:/Users/Admin/Pictures/MenuImg.png", des);
-    if(!ret){std::cout<<"loooic"<<std::endl;}
+    BaseObject gBackground;
+    bool ret= gBackground.LoadImg("C:/Users/Admin/Pictures/Menu.png", des);
 
 
-    SDL_Rect pos_arr[kMenuItemNum1];
-    pos_arr[0].x=SCREEN_WIDTH*0.5-210;
-    pos_arr[0].y=350;
+    SDL_Rect pos[kMenuItemNum1];
+    pos[0].x=SCREEN_WIDTH*0.5-210;
+    pos[0].y=350;
 
-    pos_arr[1].x=SCREEN_WIDTH*0.5-270;
-    pos_arr[1].y=200;
+    pos[1].x=SCREEN_WIDTH*0.5-270;
+    pos[1].y=200;
+
+    pos[2].x=SCREEN_WIDTH*0.5-210;
+    pos[2].y=380;
+
 
 
 
    TextObject text_menu[kMenuItemNum1];
 
-    text_menu[0].SetText("PLAY AGAIN");
+    text_menu[0].SetText("Play AGAIN");
     text_menu[0].SetColor(TextObject::BLACK_TEXT);
-    text_menu[0].SetRect( pos_arr[0].x, pos_arr[0].y);
+    text_menu[0].SetRect( pos[0].x, pos[0].y);
+    text_menu[0].LoadRenderText(font,des);
 
     text_menu[1].SetText("YOU LOSE");
-    text_menu[1].SetColor(TextObject::RED_TEXT);
-    text_menu[1].SetRect( pos_arr[1].x, pos_arr[1].y);
+    text_menu[1].SetColor(TextObject::BLACK_TEXT);
+    text_menu[1].SetRect( pos[1].x, pos[1].y);
+    text_menu[1].LoadRenderText(font,des);
+
+    text_menu[2].SetText("EXIT");
+    text_menu[2].SetColor(TextObject::BLACK_TEXT);
+    text_menu[2].SetRect( pos[2].x, pos[2].y);
+    text_menu[2].LoadRenderText(font,des);
 
 
-
-
-    bool selected[kMenuItemNum1]={0,0};
+    bool selected[kMenuItemNum1]={0,0,0};
     int xm=0;
     int ym=0;
     SDL_Event m_event;
     while(true)
     {
-        BaseObject::renderTexture(des);
-        for(int i=0;i<kMenuItemNum1;i++)
-        {
-            text_menu[i].LoadRenderText(font ,des);
-             text_menu[i].RenderText(des,pos_arr[i].x, pos_arr[i].y);
-
-        }
-
     while(SDL_PollEvent(&m_event))
     {
         switch(m_event.type)
         {
           case SDL_QUIT:
+           text_menu[0].Free();
+           text_menu[1].Free();
+           text_menu[2].Free();
+             gBackground.Free();
             return 1;
           case SDL_MOUSEMOTION:
             {
@@ -75,13 +70,14 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
 
               for(int i=0;i<kMenuItemNum1;i++)
               {
-                if(CheckFocusWithRectGameOver(xm,ym,text_menu[i].GetRect()))
+                if (xm >= pos[i].x && xm <= pos[i].x + pos[i].w &&
+                        ym >= pos[i].y && ym <= pos[i].y + pos[i].h)
                 {
                     if(selected[i]==false)
                     {
                         selected[i]=1;
                         text_menu[i].SetColor(TextObject::RED_TEXT);
-
+                        text_menu[i].LoadRenderText(font, des);
                     }
                 }
                 else
@@ -90,7 +86,7 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
                     {
                         selected[i]=0;
                         text_menu[i].SetColor(TextObject::BLACK_TEXT);
-
+                        text_menu[i].LoadRenderText(font,des);
                     }
                 }
               }
@@ -103,8 +99,13 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
 
               for(int i=0;i<kMenuItemNum1;i++)
               {
-                if(CheckFocusWithRectGameOver(xm,ym,text_menu[i].GetRect()))
+                 if (xm >= pos[i].x && xm <= pos[i].x + pos[i].w &&
+                        ym >= pos[i].y && ym <= pos[i].y + pos[i].h)
                 {
+                    text_menu[0].Free();
+                    text_menu[1].Free();
+                    text_menu[2].Free();
+                    gBackground.Free();
                     return i;
                 }
 
@@ -114,15 +115,28 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
           case SDL_KEYDOWN:
             if(m_event.key.keysym.sym==SDLK_ESCAPE)
             {
+                text_menu[0].Free();
+                text_menu[1].Free();
+                text_menu[2].Free();
+                gBackground.Free();
                 return 1;
             }
           default:
             break;
         }
    }
+      gBackground.renderTexture(des, NULL);
+
+        for (int i = 0; i < kMenuItemNum1; ++i)
+        {
+            text_menu[i].RenderText(des, pos[i].x, pos[i].y);
+            pos[i].w = text_menu[i].GetWidth();
+            pos[i].h = text_menu[i].GetHeight();
+        }
+
 
      SDL_RenderPresent(des);
  }
 
-     return 1;
+     return 0;
 }
