@@ -18,8 +18,9 @@ static SDL_Window * gWindow =nullptr;
 static SDL_Renderer* gRenderer = nullptr;
 static SDL_Event e;
 
-//static Mix_Chunk *sound_jump_threat;
-//static Mix_Chunk *sound_exp}
+static Mix_Chunk *sound_jump_threat;
+static Mix_Music *sound_menu;
+
 
 static SDL_Renderer* gMenu=NULL;
 
@@ -36,6 +37,7 @@ typedef struct Input
 {
     int jump_;
     int right_;
+    int down_;
 
 };
 

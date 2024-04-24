@@ -67,7 +67,18 @@ bool init() {
             }
         }
     }
+     if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,4096)==-1)
+     {
+         return false;
+     }
+     // Read file wav audio
+     sound_jump_threat= Mix_LoadWAV("Sound/source_sound_jump_sound.wav");
+     sound_menu= Mix_LoadMUS("Sound/source_sound_bkgr_audio.wav");
+     if(sound_jump_threat==NULL||sound_menu==NULL)
+     {
 
+         return false;
+     }
     return success;
 }
 bool loadbkground()
@@ -178,7 +189,7 @@ int main(int argc, char* args[])
    bool quit = false;
     Menu myMenu;
    int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
-
+    Mix_PlayMusic(sound_menu, -1);
    while (!quit)
     {
        time.start();
@@ -189,7 +200,7 @@ int main(int argc, char* args[])
                   quit = true;
                 break;
             }
-             character_game.HandelInputAction(e,gRenderer);
+             character_game.HandelInputAction(e,gRenderer,sound_jump_threat);
           }
 
       SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -416,10 +427,10 @@ int main(int argc, char* args[])
   threat_list.clear();
   threat_list1.clear();
 
-  // Dọn dẹp
+  Mix_FreeMusic(sound_menu);
+  Mix_CloseAudio();
   close();
 
-  // Trả về 0
   return 0;
 }
 

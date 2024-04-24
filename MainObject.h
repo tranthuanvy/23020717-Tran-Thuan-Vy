@@ -21,7 +21,7 @@ public:
    };
     virtual bool LoadImg( const std::string path,SDL_Renderer* screen);
     void Show(SDL_Renderer* des);
-    void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
+    void HandelInputAction(SDL_Event events, SDL_Renderer* screen,Mix_Chunk* sound);
     void set_clips();
 
     void DoPlayer(map& map_data);

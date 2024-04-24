@@ -12,11 +12,13 @@ MainObject::MainObject ()
     status_=-1;
     input_type_.right_=0;
     input_type_.jump_=0;
+    input_type_.down_=0;
     on_ground_ =false;
     map_x_  =0;
     map_y_ =0;
     moneycount =0;
     scorecount =0;
+
 
 }
 MainObject::~MainObject ()
@@ -122,7 +124,7 @@ void MainObject::Show (SDL_Renderer* des)
     SDL_RenderCopy(des,p_object_,currect_clip,&renderQuad);
 }
 
-void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
+void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen,Mix_Chunk* sound)
 {
     if(events.type==SDL_MOUSEBUTTONDOWN)
     {
@@ -136,14 +138,20 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
-            case SDLK_SPACE:
+            case SDLK_UP:
               input_type_.jump_=1;
-                break;
+              Mix_PlayChannel(-1,sound, 0);
+break;
+            case SDLK_DOWN:
+              input_type_.down_=1;
+                 break;
         }
     }
 
 
     if(events.type==SDL_MOUSEBUTTONDOWN)
+    {
+    if(input_type_.right_==1)
     {
         if(events.button.button==SDL_BUTTON_RIGHT)
         {
@@ -164,6 +172,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
           bullet_list_.push_back(p_bullet);
 
         }
+    }
     }
 
 
@@ -251,6 +260,21 @@ void MainObject::DoPlayer(map& map_data)
 
             input_type_.jump_=0;
         }
+
+
+       if(input_type_.down_==1)
+        {
+
+          if(on_ground_==false)
+          {
+           y_val_=+PLAYERJUMPVALUE;
+          }
+          on_ground_=true;
+
+
+            input_type_.down_=0;
+        }
+
 
 
 CheckToMap(map_data);
