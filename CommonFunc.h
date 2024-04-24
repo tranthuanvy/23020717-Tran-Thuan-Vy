@@ -17,7 +17,11 @@ const int FRAME_PER_SECOND =35;
 static SDL_Window * gWindow =nullptr;
 static SDL_Renderer* gRenderer = nullptr;
 static SDL_Event e;
-//static SDL_Renderer* gMenu=NULL;
+
+//static Mix_Chunk *sound_jump_threat;
+//static Mix_Chunk *sound_exp}
+
+static SDL_Renderer* gMenu=NULL;
 
 #define BLANK_TILE 0
 #define TILE_SIZE 64

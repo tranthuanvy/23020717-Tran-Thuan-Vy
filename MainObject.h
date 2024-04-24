@@ -26,7 +26,7 @@ public:
 
     void DoPlayer(map& map_data);
     void CheckToMap(map& map_data);
-    void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;};//tinh toan gia tri x, y mep ban do
+    void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;}
     void Mapwhenrunner(map& map_data);
     bool CheckToWin ( const float x_pos_);
     SDL_Rect GetRectFrame();
@@ -38,9 +38,12 @@ public:
     void RemoveBullet(const int& index);
     void  HandleBullet(SDL_Renderer* des);
     void increasemoney();
+    void increasescore();
     int GetMoneyCount()const{return moneycount;}
+    int GetScoreCount()const{return scorecount;}
 private:
     int moneycount ;
+    int scorecount;
     std::vector<BulletObject*>bullet_list_;
     float x_val_;
     float y_val_;
@@ -59,8 +62,9 @@ private:
 
     int map_x_;
     int map_y_;
+    Input input_type_;
 public:
-    static Input input_type_;
+
     float x_pos_;
 };
 

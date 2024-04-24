@@ -12,13 +12,13 @@ public:
 
     enum BulletType
     {
-         FIRE_BULLET=50,
-        SPHERE_BULLET =51
+         FIRE_BULLET=0,
+        SPHERE_BULLET =1
     };
     enum BulletDir
     {
-        DIR_RIGHT =20,
-        DIR_LEFT =21,
+        DIR_RIGHT =3,
+        DIR_LEFT =4,
     };
 
     void set_x_val(const int& xVal) {x_val_=xVal;}

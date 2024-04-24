@@ -16,6 +16,7 @@ MainObject::MainObject ()
     map_x_  =0;
     map_y_ =0;
     moneycount =0;
+    scorecount =0;
 
 }
 MainObject::~MainObject ()
@@ -112,7 +113,7 @@ void MainObject::Show (SDL_Renderer* des)
     {
         frame_=0;
     }
-    rect_.x=x_pos_ - map_x_;//tru di khoang cuon chieu
+    rect_.x=x_pos_ - map_x_;
     rect_.y=y_pos_ - map_y_;
 
     SDL_Rect* currect_clip=&frame_clip_[frame_];
@@ -123,32 +124,16 @@ void MainObject::Show (SDL_Renderer* des)
 
 void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 {
-    if(events.type==SDL_KEYDOWN)
+    if(events.type==SDL_MOUSEBUTTONDOWN)
     {
-        switch(events.key.keysym.sym)
-        {
-        case SDLK_RIGHT :
-            {
-              status_=WALK_RIGHT;
-              input_type_.right_=1;
+      if(events.button.button==SDL_BUTTON_LEFT)
+      {
+         status_=WALK_RIGHT;
+        input_type_.right_=1;
+      }
 
-            }
-            break;
+    }
 
-        }
-    }/*else if(events.type== SDL_KEYUP)
-    {
-        switch(events.key.keysym.sym)
-        {
-        case SDLK_RIGHT :
-            {
-              input_type_.right_=0;
-
-            }
-            break;
-
-        }
-    }*/
     if (events.type == SDL_KEYDOWN) {
         switch (events.key.keysym.sym) {
             case SDLK_SPACE:
@@ -160,7 +145,7 @@ void MainObject ::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 
     if(events.type==SDL_MOUSEBUTTONDOWN)
     {
-        if(events.button.button==SDL_BUTTON_LEFT)
+        if(events.button.button==SDL_BUTTON_RIGHT)
         {
            BulletObject* p_bullet=new BulletObject();
            p_bullet->set_bullet_type(BulletObject::FIRE_BULLET);
@@ -216,7 +201,10 @@ void MainObject:: HandleBullet(SDL_Renderer* des)
  {
      moneycount++;
  }
-
+ void MainObject::increasescore()
+ {
+     scorecount++;
+ }
  void MainObject::RemoveBullet(const int& index)
 {
     int size =bullet_list_.size();
@@ -234,6 +222,7 @@ void MainObject:: HandleBullet(SDL_Renderer* des)
 
 void MainObject::DoPlayer(map& map_data)
 {
+   int score =0;
     x_val_=0;
     y_val_+=0.8; //0.8:GRAVITY_SPEED
 
@@ -245,6 +234,8 @@ void MainObject::DoPlayer(map& map_data)
     if(input_type_.right_==1)
     {
         x_val_+=PLAYER_SPEED;
+        increasescore();
+
     }
 
 

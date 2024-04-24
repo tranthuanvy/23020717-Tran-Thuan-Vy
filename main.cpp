@@ -7,7 +7,7 @@
 #include"Explosion.h"
 #include"TextObject.h"
 #include"Menu.h"
-Input MainObject::input_type_;
+
 BaseObject g_background;
 TTF_Font*font_=NULL;
 TTF_Font*font_menu=NULL;
@@ -106,7 +106,7 @@ bool loadbkground()
          {
              p_threat->LoadImg("C:/Users/Admin/Pictures/threatobject.png",gRenderer);
              p_threat->set_clips();
-             p_threat->setxpos(1600+i*1000);
+             p_threat->setxpos(1900+i*1000);
              p_threat->setypos(250);
 
              BulletObject*p_bullet=new BulletObject();
@@ -164,11 +164,13 @@ int main(int argc, char* args[])
     exp.set_clip();
 
     //text
-    TextObject time_game;
-    time_game.SetColor(TextObject::RED_TEXT);
+    TextObject score_game;
+    score_game.SetColor(TextObject::RED_TEXT);
 
-    TextObject mark_game;
-    mark_game.SetColor(TextObject:: BLACK_TEXT );
+
+
+    TextObject number_dead_threat;
+    number_dead_threat.SetColor(TextObject:: BLACK_TEXT );
     UINT mark_value =0;
 
     TextObject money_game;
@@ -205,7 +207,8 @@ int main(int argc, char* args[])
      game_map.DrawMap(gRenderer);
      bool check =character_game.CheckToWin(character_game.x_pos_);
 
-
+     int frameexpwidth= exp.get_frame_width();
+     int frameexpheight= exp.get_frame_height();
 // va chạm giữa con heo và đạn của nhện nếu nhện bắn vào heo thì heo sẽ chết và kết thúc chương trình
      for(int i=0;i<threat_list.size();i++)
      {
@@ -228,7 +231,12 @@ int main(int argc, char* args[])
                      bCol1=SDLCommonFunc::CheckCollision(pt_bullet->GetRect(),rect_player);
                      if(bCol1)
                      {
-                         p_threat->RemoveBullet(j);
+
+
+
+
+
+                        p_threat->RemoveBullet(j);
                          break;//không kiểm tra các viên đạn khác
                      }
 
@@ -238,6 +246,8 @@ int main(int argc, char* args[])
              bool bCol2=SDLCommonFunc::CheckCollision(rect_player,rect_threat);
             if(bCol1||bCol2)
              {
+
+
 
                 if (MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                  {
@@ -284,8 +294,7 @@ int main(int argc, char* args[])
 
 // va chạm đạn bắn của con heo vào nhện thì nhện biến mât và đạn nhện bắn ra cũng biến mất
 
-     int frameexpwidth= exp.get_frame_width();
-     int frameexpheight= exp.get_frame_height();
+
      std::vector<BulletObject*>bullet_arr= character_game.get_bullet_list();
      for(int b=0;b<bullet_arr.size();b++)
      {
@@ -307,9 +316,10 @@ int main(int argc, char* args[])
                      bool bCol=SDLCommonFunc::CheckCollision(bRect,tRect);
                      if(bCol)
                      {
+                         mark_value+=1;
                        for(int i=0; i<8;i++)
                        {
-                           mark_value++;
+
                            int x_pos=p_bullet->GetRect().x -frameexpheight*0.5;
                            int y_pos= p_bullet->GetRect().y -frameexpheight*0.5;// đạn chạm ở đâu nổ tại đấy
 
@@ -338,41 +348,24 @@ int main(int argc, char* args[])
                     break;
                  }
      }
-      // Show game time
 
 
-    std:: string str_time ="Time: ";
+     int score_value=character_game.GetScoreCount();
+     std::string val_score =std:: to_string(score_value);
+     std:: string str_score ("Score:");
+     str_score+=val_score;
+     score_game.SetText(str_score);
+     score_game.LoadRenderText(font_,gRenderer);
+     score_game.RenderText(gRenderer,SCREEN_WIDTH-200,15);
 
-    if(MainObject::input_type_.right_==1)
-    {
-    Uint32 time_val= SDL_GetTicks()/1000;
-    Uint32 val_time= 310-time_val;
-
-    if(val_time<=0)
-    {
-
-                   quit=true;
-                   break;
-
-    }
-    else
-    {
-        std::string str_val=std::to_string(val_time);
-        str_time+=str_val;
-
-        time_game.SetText(str_time);
-        time_game.LoadRenderText(font_,gRenderer);
-        time_game.RenderText(gRenderer,SCREEN_WIDTH-200,15);
-    }
-    }
 
     std::string val_str_mark =std:: to_string(mark_value);
-    std::string strMark("Mark:");
+    std::string strMark("ThreatDeaded:");
     strMark+= val_str_mark;
 
-    mark_game.SetText(strMark);
-    mark_game.LoadRenderText(font_,gRenderer);
-    mark_game.RenderText(gRenderer,SCREEN_WIDTH*0.5-50,15);
+    number_dead_threat.SetText(strMark);
+    number_dead_threat.LoadRenderText(font_,gRenderer);
+    number_dead_threat.RenderText(gRenderer,SCREEN_WIDTH*0.5-50,15);
 
     int money_value=character_game.GetMoneyCount();
     std::string money_str=std::to_string(money_value);
@@ -386,6 +379,8 @@ int main(int argc, char* args[])
 
     int real_timer= time.get_ticks();// thoi gian thuc su troi qua
     int time_one_frame =1000/*mili giay*//FRAME_PER_SECOND;
+
+
 
 
     if(real_timer<time_one_frame)

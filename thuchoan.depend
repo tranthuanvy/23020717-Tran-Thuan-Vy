@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713925914 source:c:\users\admin\desktop\thuchoan\main.cpp
+1713953041 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -10,10 +10,10 @@
 	"TextObject.h"
 	"Menu.h"
 
-1713806789 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
+1713950634 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
 
-1713896964 c:\users\admin\desktop\thuchoan\commonfunc.h
+1713950430 c:\users\admin\desktop\thuchoan\commonfunc.h
 	<Windows.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -39,14 +39,14 @@
 1712467946 c:\users\admin\desktop\thuchoan\gamemap.cpp
 	"GameMap.h"
 
-1713924677 c:\users\admin\desktop\thuchoan\mainobject.h
+1713953180 c:\users\admin\desktop\thuchoan\mainobject.h
 	<vector>
 	"CommonFunc.h"
 	"BaseObject.h"
 	"BulletObject.h"
 	"Explosion.h"
 
-1713924504 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+1713952974 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
 1712871642 source:c:\users\admin\desktop\thuchoan\timer.cpp
@@ -55,7 +55,7 @@
 1712739785 c:\users\admin\desktop\thuchoan\timer.h
 	"CommonFunc.h"
 
-1713721705 c:\users\admin\desktop\thuchoan\bulletobject.h
+1713927603 c:\users\admin\desktop\thuchoan\bulletobject.h
 	"CommonFunc.h"
 	"BaseObject.h"
 
@@ -64,7 +64,7 @@
 1713721705 source:c:\users\admin\desktop\thuchoan\bulletobject.cpp
 	"BulletObject.h"
 
-1713725093 source:c:\users\admin\desktop\thuchoan\threatobject.cpp
+1713950792 source:c:\users\admin\desktop\thuchoan\threatobject.cpp
 	"ThreatObject.h"
 
 1713726284 c:\users\admin\desktop\thuchoan\threatobject.h
@@ -79,11 +79,11 @@
 1713784609 source:c:\users\admin\desktop\thuchoan\explosion.cpp
 	"Explosion.h"
 
-1713840047 c:\users\admin\desktop\thuchoan\textobject.h
+1713949078 c:\users\admin\desktop\thuchoan\textobject.h
 	"CommonFunc.h"
 	"BaseObject.h"
 
-1713795530 source:c:\users\admin\desktop\thuchoan\textobject.cpp
+1713927374 source:c:\users\admin\desktop\thuchoan\textobject.cpp
 	"TextObject.h"
 
 1713875169 c:\users\admin\desktop\thuchoan\menu.h

@@ -35,12 +35,7 @@ void TextObject::Free()
     }
 }
 
-void TextObject::SetColor(Uint8 red,Uint8 green ,Uint8 blue )
-{
-    text_color_.r=red;
-    text_color_.g=green;
-    text_color_.b=blue;
-}
+
 
 void TextObject::SetColor(int type)
 {

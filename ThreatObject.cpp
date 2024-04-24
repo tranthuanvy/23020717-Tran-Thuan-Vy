@@ -265,7 +265,7 @@ void ThreatObject::MakeBullet(SDL_Renderer* screen,const int& x_limit,const int&
             if(p_bullet->get_is_move())
             {
                 int bullet_distance=rect_.x+ width_frame_ - p_bullet->GetRect().x;
-                if(bullet_distance<300&& bullet_distance>0)
+                if(bullet_distance<650&& bullet_distance>0)
                 {
                    p_bullet->HandleMove(x_limit,y_limit);
                    p_bullet->renderTexture(screen);
