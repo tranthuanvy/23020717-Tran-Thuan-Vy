@@ -1,9 +1,10 @@
 #ifndef MAIN_OBJECT_H
 #define MAIN_OBJECT_H
 #include<vector>
-#include "CommonFunc.h"
-#include "BaseObject.h"
+#include"CommonFunc.h"
+#include"BaseObject.h"
 #include"BulletObject.h"
+#include"Explosion.h"
 
 #define PLAYERJUMPVALUE 20
 #define MAX_FALL_SPEED 10
@@ -27,8 +28,8 @@ public:
     void CheckToMap(map& map_data);
     void SetMapxy(const int map_x, const int map_y){ map_x_=map_x, map_y_=map_y;};//tinh toan gia tri x, y mep ban do
     void Mapwhenrunner(map& map_data);
+    bool CheckToWin ( const float x_pos_);
     SDL_Rect GetRectFrame();
-
     void setbulletlist(std::vector<BulletObject*>bullet_list)
     {
         bullet_list_=bullet_list;
@@ -44,21 +45,23 @@ private:
     float x_val_;
     float y_val_;
 
-    float x_pos_;
+
     float y_pos_;
 
     int width_frame_;
     int height_frame_;
 
     SDL_Rect frame_clip_[8];
-    Input input_type_;
+
     int frame_;
     int status_;
     bool on_ground_;
 
     int map_x_;
     int map_y_;
-
+public:
+    static Input input_type_;
+    float x_pos_;
 };
 
 

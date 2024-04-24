@@ -7,6 +7,7 @@
 #include"Explosion.h"
 #include"TextObject.h"
 #include"Menu.h"
+Input MainObject::input_type_;
 BaseObject g_background;
 TTF_Font*font_=NULL;
 TTF_Font*font_menu=NULL;
@@ -97,19 +98,37 @@ bool loadbkground()
  std::vector<ThreatObject*>MakeThreatList()
  {
      std::vector<ThreatObject*>list_threat;
-     ThreatObject* threatobject= new ThreatObject[20];
-     for(int i=0;i<20;i++)
+     ThreatObject* threatobject= new ThreatObject[35];
+     for(int i=0;i<35;i++)
      {
          ThreatObject* p_threat=(threatobject+i);
          if(p_threat!=NULL)
          {
              p_threat->LoadImg("C:/Users/Admin/Pictures/threatobject.png",gRenderer);
              p_threat->set_clips();
-             p_threat->setxpos(800+i*1200);
+             p_threat->setxpos(1600+i*1000);
              p_threat->setypos(250);
 
              BulletObject*p_bullet=new BulletObject();
              p_threat->InitBullet(p_bullet,gRenderer);
+             list_threat.push_back(p_threat);
+         }
+     }
+     return list_threat;
+ }
+  std::vector<ThreatObject*>MakeThreatList1()
+ {
+     std::vector<ThreatObject*>list_threat;
+     ThreatObject* threatobject= new ThreatObject[35];
+     for(int i=0;i<35;i++)
+     {
+         ThreatObject* p_threat=(threatobject+i);
+         if(p_threat!=NULL)
+         {
+             p_threat->LoadImg("C:/Users/Admin/Pictures/cactus.png",gRenderer);
+             p_threat->set_clips();
+             p_threat->setxpos(1400+i*1200);
+             p_threat->setypos(250);
              list_threat.push_back(p_threat);
          }
      }
@@ -139,7 +158,7 @@ int main(int argc, char* args[])
     character_game.set_clips();
 
     std::vector<ThreatObject*>threat_list =MakeThreatList();
-
+    std::vector<ThreatObject*>threat_list1 =MakeThreatList1();
     ExplosionObject exp;
     exp.LoadImg("C:/Users/Admin/Pictures/explosion.png",gRenderer);
     exp.set_clip();
@@ -163,12 +182,13 @@ int main(int argc, char* args[])
        time.start();
        while (SDL_PollEvent(&e) != 0)
          {
-             if (e.type == SDL_QUIT) {
-             quit = true;
-              break;
-         }
+             if (e.type == SDL_QUIT)
+            {
+                  quit = true;
+                break;
+            }
              character_game.HandelInputAction(e,gRenderer);
-    }
+          }
 
       SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
       SDL_RenderClear(gRenderer);
@@ -181,10 +201,12 @@ int main(int argc, char* args[])
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
      character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
      character_game.Show(gRenderer);
-
      game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
      game_map.DrawMap(gRenderer);
+     bool check =character_game.CheckToWin(character_game.x_pos_);
 
+
+// va chạm giữa con heo và đạn của nhện nếu nhện bắn vào heo thì heo sẽ chết và kết thúc chương trình
      for(int i=0;i<threat_list.size();i++)
      {
          ThreatObject* p_threat= threat_list.at(i);
@@ -209,12 +231,14 @@ int main(int argc, char* args[])
                          p_threat->RemoveBullet(j);
                          break;//không kiểm tra các viên đạn khác
                      }
+
                  }
              }
              SDL_Rect rect_threat=p_threat->GetRectFrame();
              bool bCol2=SDLCommonFunc::CheckCollision(rect_player,rect_threat);
             if(bCol1||bCol2)
              {
+
                 if (MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
                  {
                     p_threat->Free() ;
@@ -225,6 +249,40 @@ int main(int argc, char* args[])
              }
          }
      }
+
+
+
+//va chạm giữa con heo với xương rồng nếu con heo chạm xuong rồng thì sẽ bị nổ và kết thúc chương trình
+     for(int i = 0; i < threat_list1.size(); i++)
+{
+    ThreatObject* p_threat1 = threat_list1.at(i);
+    if(p_threat1 != NULL)
+    {
+        p_threat1->SetMapxy(map_data.start_x_, map_data.start_y_);
+        p_threat1->DoPlayer(map_data);
+        p_threat1->MakeBullet(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+        p_threat1->Show(gRenderer);
+
+        SDL_Rect rect_player = character_game.GetRectFrame();
+        SDL_Rect rect_threat1 = p_threat1->GetRectFrame();
+
+        // Kiểm tra va chạm giữa con heo và nhện
+        bool bCol3 = SDLCommonFunc::CheckCollision(rect_player, rect_threat1);
+        if(bCol3)
+        {
+            // Xử lý khi va chạm xảy ra
+            if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+            {
+                p_threat1->Free();
+                close();
+                return 0;
+            }
+        }
+
+    }
+}
+
+// va chạm đạn bắn của con heo vào nhện thì nhện biến mât và đạn nhện bắn ra cũng biến mất
 
      int frameexpwidth= exp.get_frame_width();
      int frameexpheight= exp.get_frame_height();
@@ -271,19 +329,31 @@ int main(int argc, char* args[])
 
          }
      }
+
+     if(check)
+     {
+       if (MessageBoxW(NULL, L"You WIN", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
+                 {
+                    quit =true;
+                    break;
+                 }
+     }
       // Show game time
 
 
     std:: string str_time ="Time: ";
-    Uint32 time_val= SDL_GetTicks()/1000;//chia 1000 đổi ra giây
-    Uint32 val_time= 210-time_val;
+
+    if(MainObject::input_type_.right_==1)
+    {
+    Uint32 time_val= SDL_GetTicks()/1000;
+    Uint32 val_time= 310-time_val;
+
     if(val_time<=0)
     {
-         if (MessageBoxW(NULL, L"YOU WIN!", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
-                 {
+
                    quit=true;
                    break;
-                 }
+
     }
     else
     {
@@ -293,6 +363,7 @@ int main(int argc, char* args[])
         time_game.SetText(str_time);
         time_game.LoadRenderText(font_,gRenderer);
         time_game.RenderText(gRenderer,SCREEN_WIDTH-200,15);
+    }
     }
 
     std::string val_str_mark =std:: to_string(mark_value);
@@ -338,7 +409,17 @@ int main(int argc, char* args[])
           p_threat=NULL;
       }
   }
+  for(int i=0;i<threat_list1.size();i++)
+  {
+      ThreatObject* p_threat1=threat_list1.at(i);
+      if(p_threat1!=NULL)
+      {
+          p_threat1->Free();
+          p_threat1=NULL;
+      }
+  }
   threat_list.clear();
+  threat_list1.clear();
 
   // Dọn dẹp
   close();

@@ -94,11 +94,10 @@ void MainObject:: set_clips()
 }
 void MainObject::Show (SDL_Renderer* des)
 {
-   // if(on_ground_==true)
-   // {
+
       if(status_==WALK_RIGHT)
     {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
-   // }
+
 
 
     if(input_type_.right_==1)
@@ -325,6 +324,7 @@ void MainObject::CheckToMap(map& map_data)
                map_data.tile[y2][x2] =BLANK_TILE;
                increasemoney();
            }
+
            else
            {
             if(val1!=BLANK_TILE|| val2!=BLANK_TILE)
@@ -339,7 +339,7 @@ void MainObject::CheckToMap(map& map_data)
 
            }}
 
-
+        CheckToWin (  x_pos_);
 //check vertical
 
 int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
@@ -354,13 +354,13 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
   {
       if(y_val_>0)//roi tu do
       {
-          int val1=map_data.tile[y2][x1];
+          int val1=  map_data.tile[y2][x1];
           int val2=  map_data.tile[y2][x2];
           if (val1== COIN_TILE||val2==COIN_TILE)
           {
              map_data.tile[y2][x1]=BLANK_TILE;
-              map_data.tile[y2][x2] =BLANK_TILE;
-              increasemoney();
+             map_data.tile[y2][x2] =BLANK_TILE;
+             increasemoney();
           }
           else
           {
@@ -383,7 +383,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
           if(val1==COIN_TILE||val2==COIN_TILE)
           {
              map_data.tile[y1][x1]=BLANK_TILE;
-              map_data.tile[y1][x2] =BLANK_TILE;
+             map_data.tile[y1][x2] =BLANK_TILE;
               increasemoney();
           }
           else{
@@ -405,7 +405,15 @@ if(x_pos_+width_frame_>map_data.max_x_)
 
 }
 
+bool MainObject:: CheckToWin ( const float x_pos_)
+{
+    bool win_=false;
+    if (x_pos_ >= MAX_MAP_X * TILE_SIZE - width_frame_) {
+    win_ = true;
 
+}
+    return win_;
+}
 
 
 

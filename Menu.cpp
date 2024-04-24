@@ -11,7 +11,7 @@ Menu::~Menu()
 
 bool Menu:: CheckFocusWithRect(const int& x,const int& y,const SDL_Rect& rect)
 {
-    if(x>=SCREEN_WIDTH*0.5-210&&x<= SCREEN_WIDTH*0.5+150&&y>=350&& y<=400)
+    if(y>=350&& y<=400&&x>=SCREEN_WIDTH*0.5-210&&x<= SCREEN_WIDTH*0.5+150)
     {
         return true;
     }
