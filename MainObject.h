@@ -41,6 +41,7 @@ public:
     void increasescore();
     int GetMoneyCount()const{return moneycount;}
     int GetScoreCount()const{return scorecount;}
+    bool GetIsDie()const{return is_die_;}
 private:
     int moneycount ;
     int scorecount;
@@ -63,7 +64,10 @@ private:
     int map_x_;
     int map_y_;
     Input input_type_;
-public:
+
+ public:
+    bool is_die_;
+
 
     float x_pos_;
 };

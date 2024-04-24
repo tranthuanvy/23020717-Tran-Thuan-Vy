@@ -41,6 +41,8 @@
 		<Unit filename="Explosion.h" />
 		<Unit filename="GameMap.cpp" />
 		<Unit filename="GameMap.h" />
+		<Unit filename="GameOver.cpp" />
+		<Unit filename="GameOver.h" />
 		<Unit filename="MainObject.cpp" />
 		<Unit filename="MainObject.h" />
 		<Unit filename="Menu.cpp" />

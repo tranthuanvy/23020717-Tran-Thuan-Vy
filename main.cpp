@@ -7,7 +7,7 @@
 #include"Explosion.h"
 #include"TextObject.h"
 #include"Menu.h"
-
+#include"GameOver.h"
 BaseObject g_background;
 TTF_Font*font_=NULL;
 TTF_Font*font_menu=NULL;
@@ -155,11 +155,14 @@ int main(int argc, char* args[])
     std::cout << "Lỗi khởi tạo SDL!" << std::endl;
     return -1;
   }
+   bool quit = false;
+   Menu myMenu;
+   int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
   if(!loadbkground()){
     std::cout<<" lỗi tại background!"<<std::endl;
     return -1;
   }
-
+again_label:
     GameMap game_map;
     game_map.LoadMap("map/map01.txt");    // Sử dụng trực tiếp kiểu const char**/
     game_map.LoadTiles(gRenderer);
@@ -186,9 +189,9 @@ int main(int argc, char* args[])
 
     TextObject money_game;
     money_game.SetColor(TextObject:: WHITE_TEXT);
-   bool quit = false;
-    Menu myMenu;
-   int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
+
+   GameOver myGameOver;
+
     Mix_PlayMusic(sound_menu, -1);
    while (!quit)
     {
@@ -242,11 +245,6 @@ int main(int argc, char* args[])
                      bCol1=SDLCommonFunc::CheckCollision(pt_bullet->GetRect(),rect_player);
                      if(bCol1)
                      {
-
-
-
-
-
                         p_threat->RemoveBullet(j);
                          break;//không kiểm tra các viên đạn khác
                      }
@@ -257,17 +255,10 @@ int main(int argc, char* args[])
              bool bCol2=SDLCommonFunc::CheckCollision(rect_player,rect_threat);
             if(bCol1||bCol2)
              {
+                character_game.is_die_=true;
+                p_threat->Free();
 
-
-
-                if (MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
-                 {
-                    p_threat->Free() ;
-                    close();
-
-                    return 0 ;
-                 }
-             }
+            }
          }
      }
 
@@ -291,13 +282,10 @@ int main(int argc, char* args[])
         bool bCol3 = SDLCommonFunc::CheckCollision(rect_player, rect_threat1);
         if(bCol3)
         {
-            // Xử lý khi va chạm xảy ra
-            if(MessageBoxW(NULL, L"GAME OVER", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
-            {
-                p_threat1->Free();
-                close();
-                return 0;
-            }
+
+            character_game.is_die_=true;
+            p_threat1->Free();
+
         }
 
     }
@@ -387,6 +375,25 @@ int main(int argc, char* args[])
     money_game.RenderText(gRenderer,SCREEN_WIDTH*0.5-600,15);
 
     SDL_RenderPresent(gRenderer);
+      bool game_over = character_game.GetIsDie();
+        if (game_over == true)
+        {
+            Sleep(500);
+            int ret_menu = myGameOver.ShowGameOver(gRenderer,font_menu);
+            if (ret_menu == 1)
+            {
+                quit = true;
+                continue;
+            }
+            else
+            {
+                quit = false;
+
+                goto again_label;
+            }
+        }
+
+
 
     int real_timer= time.get_ticks();// thoi gian thuc su troi qua
     int time_one_frame =1000/*mili giay*//FRAME_PER_SECOND;
@@ -433,6 +440,3 @@ int main(int argc, char* args[])
 
   return 0;
 }
-
-
-

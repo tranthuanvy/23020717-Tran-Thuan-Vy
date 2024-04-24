@@ -22,7 +22,6 @@ static Mix_Chunk *sound_jump_threat;
 static Mix_Music *sound_menu;
 
 
-static SDL_Renderer* gMenu=NULL;
 
 #define BLANK_TILE 0
 #define TILE_SIZE 64

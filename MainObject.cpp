@@ -18,7 +18,7 @@ MainObject::MainObject ()
     map_y_ =0;
     moneycount =0;
     scorecount =0;
-
+    is_die_ =false;
 
 }
 MainObject::~MainObject ()
@@ -161,13 +161,13 @@ break;
            if(status_==WALK_RIGHT)
             {
                 p_bullet-> set_bullet_dir(BulletObject::DIR_RIGHT);
-                p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);  //taoj vien dan cho vao list
+                p_bullet->SetRect(this->rect_.x+width_frame_-15,rect_.y+height_frame_*0.4);
 
             }
 
            p_bullet->set_x_val(20);
 
-           p_bullet->set_is_move(true); //cho phep ban
+           p_bullet->set_is_move(true);
 
           bullet_list_.push_back(p_bullet);
 
@@ -367,7 +367,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
 
   if(x1>=0&&x2< MAX_MAP_X && y1>=0&&y2< MAX_MAP_Y)
   {
-      if(y_val_>0)//roi tu do
+      if(y_val_>0)
       {
           int val1=  map_data.tile[y2][x1];
           int val2=  map_data.tile[y2][x2];
@@ -415,7 +415,7 @@ int width_min= width_frame_< TILE_SIZE ? width_frame_: TILE_SIZE;
 
 if(x_pos_+width_frame_>map_data.max_x_)
 {
-    x_pos_=map_data.max_x_-width_frame_-1;// tru sai so
+    x_pos_=map_data.max_x_-width_frame_-1;
 }
 
 }
