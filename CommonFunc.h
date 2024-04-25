@@ -20,6 +20,8 @@ static SDL_Event e;
 
 static Mix_Chunk *sound_jump_threat;
 static Mix_Music *sound_menu;
+static Mix_Chunk *sound_lose;
+
 
 
 

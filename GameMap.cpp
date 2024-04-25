@@ -55,7 +55,7 @@ void GameMap::LoadTiles(SDL_Renderer* screen)
 }
 void GameMap::DrawMap(SDL_Renderer* screen)
 {
-    // Tính toán vị trí kích thước của bản đồ
+
     int x1 = 0;
     int x2 = 0;
 
@@ -73,10 +73,9 @@ void GameMap::DrawMap(SDL_Renderer* screen)
    y1 = (game_map_.start_y_ % TILE_SIZE) * -1;
    y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE);
 
-    // Vòng lặp vẽ tile
     for (int i = y1; i < y2; i += TILE_SIZE)
     {
-        map_x = game_map_.start_x_/ TILE_SIZE; // Đảm bảo reset map_x
+        map_x = game_map_.start_x_/ TILE_SIZE;
         for (int j = x1; j < x2; j += TILE_SIZE)
         {
            int val = game_map_.tile[map_y][map_x];

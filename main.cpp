@@ -1,6 +1,6 @@
 #include"CommonFunc.h"
 #include"BaseObject.h"
-#include "GameMap.h"
+#include"GameMap.h"
 #include"MainObject.h"
 #include"Timer.h"
 #include"ThreatObject.h"
@@ -72,12 +72,13 @@ bool init() {
      {
          return false;
      }
-     // Read file wav audio
+
      sound_jump_threat= Mix_LoadWAV("Sound/source_sound_jump_sound.wav");
      sound_menu= Mix_LoadMUS("Sound/source_sound_bkgr_audio.wav");
-     if(sound_jump_threat==NULL||sound_menu==NULL)
-     {
+     sound_lose=Mix_LoadWAV("Sound/source_sound_lose_sound.wav");
 
+     if(sound_jump_threat==NULL||sound_menu==NULL||sound_lose==NULL)
+     {
          return false;
      }
     return success;
@@ -265,7 +266,7 @@ again_label:
                         SDL_RenderPresent(gRenderer);
                          Sleep(700);
                        character_game.is_die_=true;
-                        break;//không kiểm tra các viên đạn khác
+                        break;
                      }
 
                  }
@@ -287,7 +288,7 @@ again_label:
 
 
 
-//va chạm giữa con heo với xương rồng nếu con heo chạm xuong rồng thì sẽ bị nổ và kết thúc chương trình
+//va chạm giữa con heo với xương rồng nếu con heo chạm xuong rồng thì sẽ  và kết thúc chương trình
      for(int i = 0; i < threat_list1.size(); i++)
 {
     ThreatObject* p_threat1 = threat_list1.at(i);
@@ -304,7 +305,7 @@ again_label:
         // Kiểm tra va chạm giữa con heo và nhện
         bool bCol3 = SDLCommonFunc::CheckCollision(rect_player, rect_threat1);
         if(bCol3)
-        {
+        {    Mix_PlayChannel(-1,sound_lose, 0);
             g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
             g_gameover.renderTextureGameBackGround(gRenderer,NULL);
             SDL_RenderPresent(gRenderer);

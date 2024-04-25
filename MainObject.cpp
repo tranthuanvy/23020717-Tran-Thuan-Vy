@@ -158,6 +158,7 @@ break;
            BulletObject* p_bullet=new BulletObject();
            p_bullet->set_bullet_type(BulletObject::FIRE_BULLET);
            p_bullet->LoadImgBullet(screen);
+
            if(status_==WALK_RIGHT)
             {
                 p_bullet-> set_bullet_dir(BulletObject::DIR_RIGHT);
