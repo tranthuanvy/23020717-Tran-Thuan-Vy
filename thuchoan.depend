@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1714031887 source:c:\users\admin\desktop\thuchoan\main.cpp
+1714034762 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -87,7 +87,7 @@
 1713927374 source:c:\users\admin\desktop\thuchoan\textobject.cpp
 	"TextObject.h"
 
-1714009910 c:\users\admin\desktop\thuchoan\menu.h
+1714033858 c:\users\admin\desktop\thuchoan\menu.h
 	"CommonFunc.h"
 	"TextObject.h"
 

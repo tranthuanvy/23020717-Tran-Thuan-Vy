@@ -5,6 +5,7 @@
 #include"TextObject.h"
 #define kMenuItemNum 2
 
+
 class Menu: public BaseObject
 {
 public:

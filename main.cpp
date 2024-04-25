@@ -15,12 +15,12 @@ TTF_Font*font_menu=NULL;
 bool init() {
     bool success = true;
 
-    // Khởi tạo SDL
+
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cout << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
         success = false;
     } else {
-        // Thiết lập chất lượng tỉ lệ vẽ texture thành linear
+
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
             std::cout << "Warning: Linear texture filtering not enabled!" << std::endl;
         }
@@ -416,7 +416,6 @@ again_label:
             else
             {
                 quit = false;
-
                 goto again_label;
             }
         }
