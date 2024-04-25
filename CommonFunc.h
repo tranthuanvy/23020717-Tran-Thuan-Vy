@@ -25,11 +25,10 @@ static Mix_Music *sound_menu;
 
 #define BLANK_TILE 0
 #define TILE_SIZE 64
-#define MAX_MAP_X 500
+#define MAX_MAP_X 512
 #define MAX_MAP_Y 10
 #define COIN_TILE 5
-#define OSTACLE1 4
-#define OSTACLE2 3
+
 
 
 typedef struct Input

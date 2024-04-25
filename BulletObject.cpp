@@ -19,12 +19,12 @@ bool BulletObject::LoadImgBullet(SDL_Renderer* des)
     if(bullet_type_==SPHERE_BULLET)
     {
 
-       ret= LoadImg("C:/Users/Admin/Pictures/spherebullet.PNG ",des);
+       ret= LoadImg("Pics/spherebullet.PNG ",des);
 
     }
     else
     {
-        ret=LoadImg("C:/Users/Admin/Pictures/fire.png",des);
+        ret=LoadImg("Pics/fire.png",des);
 
     }
    return ret;

@@ -9,6 +9,7 @@
 #include"Menu.h"
 #include"GameOver.h"
 BaseObject g_background;
+BaseObject g_gameover;
 TTF_Font*font_=NULL;
 TTF_Font*font_menu=NULL;
 bool init() {
@@ -83,7 +84,7 @@ bool init() {
 }
 bool loadbkground()
 {
-    bool ret =g_background.LoadImg("C:/Users/Admin/Pictures/bkground.PNG",gRenderer);
+    bool ret =g_background.LoadImg("Pics/bkground.PNG",gRenderer);
     if (ret ==false)
     {
     std::cout << "Lỗi tải background!" << std::endl;
@@ -109,15 +110,15 @@ bool loadbkground()
  std::vector<ThreatObject*>MakeThreatList()
  {
      std::vector<ThreatObject*>list_threat;
-     ThreatObject* threatobject= new ThreatObject[35];
-     for(int i=0;i<35;i++)
+     ThreatObject* threatobject= new ThreatObject[42];
+     for(int i=0;i<42;i++)
      {
          ThreatObject* p_threat=(threatobject+i);
          if(p_threat!=NULL)
          {
-             p_threat->LoadImg("C:/Users/Admin/Pictures/threatobject.png",gRenderer);
+             p_threat->LoadImg("Pics/threatobject.png",gRenderer);
              p_threat->set_clips();
-             p_threat->setxpos(1900+i*1000);
+             p_threat->setxpos(2000+i*1200);
              p_threat->setypos(250);
 
              BulletObject*p_bullet=new BulletObject();
@@ -130,13 +131,13 @@ bool loadbkground()
   std::vector<ThreatObject*>MakeThreatList1()
  {
      std::vector<ThreatObject*>list_threat;
-     ThreatObject* threatobject= new ThreatObject[35];
-     for(int i=0;i<35;i++)
+     ThreatObject* threatobject= new ThreatObject[42];
+     for(int i=0;i<42;i++)
      {
          ThreatObject* p_threat=(threatobject+i);
          if(p_threat!=NULL)
          {
-             p_threat->LoadImg("C:/Users/Admin/Pictures/cactus.png",gRenderer);
+             p_threat->LoadImg("Pics/cactus.png",gRenderer);
              p_threat->set_clips();
              p_threat->setxpos(1400+i*1200);
              p_threat->setypos(250);
@@ -149,7 +150,7 @@ bool loadbkground()
 int main(int argc, char* args[])
 {
     Timer time;
-  // Khởi tạo SDL
+
   if (!init())
     {
     std::cout << "Lỗi khởi tạo SDL!" << std::endl;
@@ -158,7 +159,7 @@ int main(int argc, char* args[])
    bool quit = false;
    Menu myMenu;
    int ret_menu = myMenu.ShowMenu(gRenderer,font_menu);
-   if (ret_menu == 2)
+   if (ret_menu == 1)
         {quit = true;}
   if(!loadbkground()){
     std::cout<<" lỗi tại background!"<<std::endl;
@@ -170,13 +171,13 @@ again_label:
     game_map.LoadTiles(gRenderer);
 
     MainObject character_game;
-    character_game.LoadImg("C:/Users/Admin/Pictures/animal.PNG",gRenderer);
+    character_game.LoadImg("Pics/animal.PNG",gRenderer);
     character_game.set_clips();
 
     std::vector<ThreatObject*>threat_list =MakeThreatList();
     std::vector<ThreatObject*>threat_list1 =MakeThreatList1();
     ExplosionObject exp;
-    exp.LoadImg("C:/Users/Admin/Pictures/explosion.png",gRenderer);
+    exp.LoadImg("Pics/explosion.png",gRenderer);
     exp.set_clip();
 
     //text
@@ -192,7 +193,7 @@ again_label:
     TextObject money_game;
     money_game.SetColor(TextObject:: WHITE_TEXT);
 
-   GameOver myGameOver;
+    GameOver myGameOver;
 
     Mix_PlayMusic(sound_menu, -1);
    while (!quit)
@@ -217,9 +218,9 @@ again_label:
 
      character_game.HandleBullet(gRenderer);
      character_game.SetMapxy(map_data.start_x_,map_data.start_y_);
-     character_game.DoPlayer(map_data);// tính  toán lại start x, start y có tính toán mới
+     character_game.DoPlayer(map_data);
      character_game.Show(gRenderer);
-     game_map.SetMap(map_data);// cap nhat lai vi tri moi tre0
+     game_map.SetMap(map_data);
      game_map.DrawMap(gRenderer);
      bool check =character_game.CheckToWin(character_game.x_pos_);
 
@@ -248,15 +249,35 @@ again_label:
                      if(bCol1)
                      {
                         p_threat->RemoveBullet(j);
-                         break;//không kiểm tra các viên đạn khác
+                        for(int i=0; i<8;i++)
+                       {
+
+                           int x_pos=pt_bullet->GetRect().x -frameexpheight*0.5;
+                           int y_pos= pt_bullet->GetRect().y -frameexpheight*0.5;
+
+                           exp.set_frame(i);
+                           exp.SetRect(x_pos,y_pos);
+                           exp.Show(gRenderer);
+                       }
+                       character_game.Free();
+                        g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
+                        g_gameover.renderTextureGameBackGround(gRenderer,NULL);
+                        SDL_RenderPresent(gRenderer);
+                         Sleep(700);
+                       character_game.is_die_=true;
+                        break;//không kiểm tra các viên đạn khác
                      }
 
                  }
              }
              SDL_Rect rect_threat=p_threat->GetRectFrame();
              bool bCol2=SDLCommonFunc::CheckCollision(rect_player,rect_threat);
-            if(bCol1||bCol2)
+            if(bCol2)
              {
+                g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
+                g_gameover.renderTextureGameBackGround(gRenderer,NULL);
+                SDL_RenderPresent(gRenderer);
+                Sleep(700);
                 character_game.is_die_=true;
                 p_threat->Free();
 
@@ -284,7 +305,10 @@ again_label:
         bool bCol3 = SDLCommonFunc::CheckCollision(rect_player, rect_threat1);
         if(bCol3)
         {
-
+            g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
+            g_gameover.renderTextureGameBackGround(gRenderer,NULL);
+            SDL_RenderPresent(gRenderer);
+            Sleep(700);
             character_game.is_die_=true;
             p_threat1->Free();
 
@@ -321,8 +345,8 @@ again_label:
                        for(int i=0; i<8;i++)
                        {
 
-                           int x_pos=p_bullet->GetRect().x -frameexpheight*0.5;
-                           int y_pos= p_bullet->GetRect().y -frameexpheight*0.5;// đạn chạm ở đâu nổ tại đấy
+                           int x_pos=p_bullet->GetRect().x -frameexpheight*0.3;
+                           int y_pos= p_bullet->GetRect().y -frameexpheight*0.3;
 
                            exp.set_frame(i);
                            exp.SetRect(x_pos,y_pos);
@@ -343,11 +367,12 @@ again_label:
 
      if(check)
      {
-       if (MessageBoxW(NULL, L"You WIN", L"Info", MB_OK | MB_ICONSTOP) == IDOK)
-                 {
-                    quit =true;
-                    break;
-                 }
+        g_gameover.LoadImg("Pics/GameWin.png",gRenderer);
+        g_gameover.renderTextureGameBackGround(gRenderer,NULL);
+        SDL_RenderPresent(gRenderer);
+        Sleep(700);
+        character_game.is_die_=true;
+
      }
 
 
@@ -380,7 +405,7 @@ again_label:
       bool game_over = character_game.GetIsDie();
         if (game_over == true)
         {
-            Sleep(500);
+            Sleep(700);
             int ret_menu = myGameOver.ShowGameOver(gRenderer,font_menu);
             if (ret_menu == 1)
             {

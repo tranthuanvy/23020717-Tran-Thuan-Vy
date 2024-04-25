@@ -3,7 +3,7 @@
 
 #include"CommonFunc.h"
 #include"TextObject.h"
-#define kMenuItemNum 3
+#define kMenuItemNum 2
 
 class Menu: public BaseObject
 {

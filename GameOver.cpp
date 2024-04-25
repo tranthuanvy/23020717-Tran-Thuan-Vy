@@ -13,18 +13,16 @@ GameOver::~GameOver()
 int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
 {
     BaseObject gBackground;
-    bool ret= gBackground.LoadImg("C:/Users/Admin/Pictures/Menu.png", des);
+    bool ret= gBackground.LoadImg("Pics/Menu.png", des);
 
 
     SDL_Rect pos[kMenuItemNum1];
     pos[0].x=SCREEN_WIDTH*0.5-210;
-    pos[0].y=350;
+    pos[0].y=470;
 
-    pos[1].x=SCREEN_WIDTH*0.5-270;
-    pos[1].y=200;
+    pos[1].x=SCREEN_WIDTH*0.5-100;
+    pos[1].y=550;
 
-    pos[2].x=SCREEN_WIDTH*0.5-210;
-    pos[2].y=380;
 
 
 
@@ -36,18 +34,14 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
     text_menu[0].SetRect( pos[0].x, pos[0].y);
     text_menu[0].LoadRenderText(font,des);
 
-    text_menu[1].SetText("YOU LOSE");
+
+    text_menu[1].SetText("EXIT");
     text_menu[1].SetColor(TextObject::BLACK_TEXT);
     text_menu[1].SetRect( pos[1].x, pos[1].y);
     text_menu[1].LoadRenderText(font,des);
 
-    text_menu[2].SetText("EXIT");
-    text_menu[2].SetColor(TextObject::BLACK_TEXT);
-    text_menu[2].SetRect( pos[2].x, pos[2].y);
-    text_menu[2].LoadRenderText(font,des);
 
-
-    bool selected[kMenuItemNum1]={0,0,0};
+    bool selected[kMenuItemNum1]={0,0};
     int xm=0;
     int ym=0;
     SDL_Event m_event;
@@ -60,7 +54,7 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
           case SDL_QUIT:
            text_menu[0].Free();
            text_menu[1].Free();
-           text_menu[2].Free();
+
              gBackground.Free();
             return 1;
           case SDL_MOUSEMOTION:
@@ -104,7 +98,6 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
                 {
                     text_menu[0].Free();
                     text_menu[1].Free();
-                    text_menu[2].Free();
                     gBackground.Free();
                     return i;
                 }
@@ -117,7 +110,6 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
             {
                 text_menu[0].Free();
                 text_menu[1].Free();
-                text_menu[2].Free();
                 gBackground.Free();
                 return 1;
             }

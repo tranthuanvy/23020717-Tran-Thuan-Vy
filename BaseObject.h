@@ -18,6 +18,7 @@ public :
     SDL_Texture* GetObject()const{ return p_object_;}
     bool LoadImg(const std::string path,SDL_Renderer* gRenderer);
     void renderTexture(SDL_Renderer* des, const SDL_Rect* clip = NULL);
+    void renderTextureGameBackGround(SDL_Renderer* des, const SDL_Rect* clip = NULL);
     void Free();
 
 };

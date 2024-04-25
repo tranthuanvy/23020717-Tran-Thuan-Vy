@@ -53,6 +53,14 @@
     SDL_RenderCopy(des, p_object_, clip, &dstRect);
 }
 
+void BaseObject::renderTextureGameBackGround(SDL_Renderer* des,  const SDL_Rect* clip /*= NULL*/ ) {
+    // Tạo một SDL_Rect để chỉ định vị trí và kích thước của texture trên bề mặt vẽ
+    SDL_Rect dstRect = {500,270,rect_.w,rect_.h};
+
+    // Vẽ texture lên bộ kết xuất
+    SDL_RenderCopy(des, p_object_, clip, &dstRect);
+}
+
 void BaseObject::Free(){
     SDL_DestroyTexture(p_object_);
     p_object_ = nullptr;

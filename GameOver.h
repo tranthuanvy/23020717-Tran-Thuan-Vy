@@ -2,7 +2,7 @@
 #define GAME_OVER_H
 #include"CommonFunc.h"
 #include"TextObject.h"
-#define kMenuItemNum1 3
+#define kMenuItemNum1 2
 
 class GameOver: public BaseObject
 {

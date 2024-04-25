@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713993456 source:c:\users\admin\desktop\thuchoan\main.cpp
+1714021505 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -14,7 +14,7 @@
 1713950634 source:c:\users\admin\desktop\thuchoan\commonfunc.cpp
 	"CommonFunc.h"
 
-1713983424 c:\users\admin\desktop\thuchoan\commonfunc.h
+1714020260 c:\users\admin\desktop\thuchoan\commonfunc.h
 	<Windows.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -24,10 +24,10 @@
 	<SDL_ttf.h>
 	<vector>
 
-1713838727 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
+1714018422 source:c:\users\admin\desktop\thuchoan\baseobject.cpp
 	"BaseObject.h"
 
-1713869249 c:\users\admin\desktop\thuchoan\baseobject.h
+1714018422 c:\users\admin\desktop\thuchoan\baseobject.h
 	"CommonFunc.h"
 
 1713924364 source:c:\users\admin\desktop\thuchoan\gamemap.cpp
@@ -47,7 +47,7 @@
 	"BulletObject.h"
 	"Explosion.h"
 
-1713989095 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
+1714029006 source:c:\users\admin\desktop\thuchoan\mainobject.cpp
 	"MainObject.h"
 
 1713992674 source:c:\users\admin\desktop\thuchoan\timer.cpp
@@ -62,10 +62,10 @@
 
 1712878138 source:c:\users\admin\desktop\thuchoan\bu.c
 
-1713721705 source:c:\users\admin\desktop\thuchoan\bulletobject.cpp
+1714029006 source:c:\users\admin\desktop\thuchoan\bulletobject.cpp
 	"BulletObject.h"
 
-1713950792 source:c:\users\admin\desktop\thuchoan\threatobject.cpp
+1714022123 source:c:\users\admin\desktop\thuchoan\threatobject.cpp
 	"ThreatObject.h"
 
 1713726284 c:\users\admin\desktop\thuchoan\threatobject.h
@@ -80,26 +80,26 @@
 1713784609 source:c:\users\admin\desktop\thuchoan\explosion.cpp
 	"Explosion.h"
 
-1713949078 c:\users\admin\desktop\thuchoan\textobject.h
+1714028731 c:\users\admin\desktop\thuchoan\textobject.h
 	"CommonFunc.h"
 	"BaseObject.h"
 
 1713927374 source:c:\users\admin\desktop\thuchoan\textobject.cpp
 	"TextObject.h"
 
-1713994174 c:\users\admin\desktop\thuchoan\menu.h
+1714009910 c:\users\admin\desktop\thuchoan\menu.h
 	"CommonFunc.h"
 	"TextObject.h"
 
-1713994174 source:c:\users\admin\desktop\thuchoan\menu.cpp
+1714029006 source:c:\users\admin\desktop\thuchoan\menu.cpp
 	"Menu.h"
 
 1713978911 c:\users\admin\desktop\thuchoan\gamestate.h
 
-1713994264 source:c:\users\admin\desktop\thuchoan\gameover.cpp
+1714029006 source:c:\users\admin\desktop\thuchoan\gameover.cpp
 	"GameOver.h"
 
-1713994244 c:\users\admin\desktop\thuchoan\gameover.h
+1714018798 c:\users\admin\desktop\thuchoan\gameover.h
 	"CommonFunc.h"
 	"TextObject.h"
 

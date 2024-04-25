@@ -89,7 +89,7 @@ void ThreatObject:: set_clips()
 
 void ThreatObject:: Show(SDL_Renderer* des)
 {
-    rect_.x=x_pos_ - map_x_;//tru di khoang cuon chieu
+    rect_.x=x_pos_ - map_x_;
     rect_.y=y_pos_ - map_y_;
 
 
@@ -159,7 +159,7 @@ void ThreatObject::CheckToMap(map& map_data)
           int val1=  map_data.tile[y1][x2];
           int val2=  map_data.tile[y2][x2];
 
-            if((val1!=BLANK_TILE &&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
+            if((val1!=BLANK_TILE &&val1!=COIN_TILE)||( val2!=BLANK_TILE&&val2!=COIN_TILE))
 
            {
                x_pos_ =x2*TILE_SIZE;
@@ -173,7 +173,7 @@ void ThreatObject::CheckToMap(map& map_data)
             int val1=  map_data.tile[y1][x1];
             int val2=  map_data.tile[y2][x1];
 
-            if((val1!=BLANK_TILE &&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
+            if((val1!=BLANK_TILE &&val1!=COIN_TILE)||( val2!=BLANK_TILE&&val2!=COIN_TILE))
 
            {
                x_pos_ =(x1+1)*TILE_SIZE;
@@ -203,7 +203,7 @@ void ThreatObject::CheckToMap(map& map_data)
           int val1=map_data.tile[y2][x1];
           int val2=  map_data.tile[y2][x2];
 
-               if((val1!=BLANK_TILE&&val1!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)|| (val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
+               if((val1!=BLANK_TILE&&val1!=COIN_TILE)|| (val2!=BLANK_TILE&&val2!=COIN_TILE))
           {
               y_pos_=y2*TILE_SIZE;
               y_pos_ -=(height_frame_+1);
@@ -220,7 +220,7 @@ void ThreatObject::CheckToMap(map& map_data)
           int val2=map_data.tile[y1][x2];
 
 
-            if((val1!=BLANK_TILE&&val2!=COIN_TILE&&val1!=OSTACLE1&&val1!=OSTACLE2)||( val2!=BLANK_TILE&&val2!=COIN_TILE&&val2!=OSTACLE1&&val2!=OSTACLE2))
+            if((val1!=BLANK_TILE&&val2!=COIN_TILE)||( val2!=BLANK_TILE&&val2!=COIN_TILE))
             {
                 y_pos_=(y1+1)*TILE_SIZE;
                 y_val_=0;
@@ -233,7 +233,7 @@ void ThreatObject::CheckToMap(map& map_data)
 
 if(x_pos_+width_frame_>map_data.max_x_)
 {
-    x_pos_=map_data.max_x_-width_frame_-1;// tru sai so
+    x_pos_=map_data.max_x_-width_frame_-1;
 }
 
 }

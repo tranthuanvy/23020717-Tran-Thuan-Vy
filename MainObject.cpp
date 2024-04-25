@@ -99,7 +99,7 @@ void MainObject::Show (SDL_Renderer* des)
 {
 
       if(status_==WALK_RIGHT)
-    {LoadImg("C:/Users/Admin/Pictures/animal.PNG",des);}
+    {LoadImg("Pics/animal.PNG",des);}
 
 
 
