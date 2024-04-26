@@ -61,22 +61,31 @@ OSTACLE RACE GAME trò chơi được lấy dựa nên từ tựa game Dino kinh
   - BaseObject : là lớp đại diện cho một đối tượng cơ bản trong trò chơi, tức là các lớp đối tượng khác sẽ kế thừa lại những tính chất cơ bản của lớp này .
 
     LoadImg : Tải hình ảnh và tạo texture cho game
-    SetRect : Thiết lập vị trí cho đối tượng
-    SDL_Rect GetRect():Lấy vị trí của đối tượng
-    SDL_Texture* GetObject: Lấy con trỏ đến texture của đối tượng
+
+     SetRect : Thiết lập vị trí cho đối tượng
+
+     SDL_Rect GetRect():Lấy vị trí của đối tượng
+
+     SDL_Texture* GetObject: Lấy con trỏ đến texture của đối tượng
+
     void RenderTexture: Vẽ texture lên renderer
-    void Free(): giải phóng texture
+
+     void Free(): giải phóng texture
 - MainObject : là lớp đại diện cho nhân vật game chính , được kế thừa những tính chất cơ bản có sẵn  của lớp BaseObject kia và các tính năng riêng của lớp 
 
   HandleInputAction: Xử lí sự kiện từ chuột + bàn phím
-    DoPlayer : Xử lý di chuyển của nhân vật 
-    Mapwhenrunner: Hàm xử lý hiện map khi nhân vật di chuyển 
-    CheckToMap : Hàm kiểm tra giữa nhân vật game với title map 
-    CheckToWin : Kiểm tra nhân vật đã thắng hay chưa 
+  DoPlayer : Xử lý di chuyển của nhân vật 
+
+  Mapwhenrunner: Hàm xử lý hiện map khi nhân vật di chuyển 
+
+  CheckToMap : Hàm kiểm tra giữa nhân vật game với title map 
+
+  CheckToWin : Kiểm tra nhân vật đã thắng hay chưa 
 
 - BulletObject: là lớp đại diện cho đạn bán ra của nhân vật game chính và nhân vật đe dọa ,được kế thừa những tính chất cơ bản có sẵn  của lớp BaseObject kia và các tính năng riêng của lớp
-    LoadImgBullet :Load ảnh đạn
-    HandleMove : Hàm quản lý việc di chuyển của một đối tượng đạn trong ranh giới ngang được chỉ định
+   LoadImgBullet :Load ảnh đạn
+
+  HandleMove : Hàm quản lý việc di chuyển của một đối tượng đạn trong ranh giới ngang được chỉ định
 
 - ThreatObject: là lớp đối tượng hiểm họa cũng được kế thừa từ BaseObject
 - Explosion : là lớp đối tượng khởi tạo và xử lý đạn bắn cho các đối tượng  
