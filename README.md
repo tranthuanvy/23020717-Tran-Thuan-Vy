@@ -4,8 +4,10 @@
  - Họ và tên :Trần Thuận Vy
  - MSSV      : 23020717
  - Lớp       : K68J
- 
- 
+   
+Giới thiệu và cách chơi game 
+https://youtu.be/PSYkiczdP8o
+
 OSTACLE RACE GAME trò chơi được lấy dựa nên từ tựa game Dino kinh điển trên Google,đồng thời đã được phát triển thêm một số tính năng .Bạn hãy cố gắng hết sức để tránh các vật cản và giành chiến thắng 
 ## 0.Cách tải game 
  - Tải game được nén tại link sau:
