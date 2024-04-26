@@ -30,13 +30,13 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
    TextObject text_menu[kMenuItemNum1];
 
     text_menu[0].SetText("Play AGAIN");
-    text_menu[0].SetColor(TextObject::BLACK_TEXT);
+    text_menu[0].SetColor(TextObject::RED_TEXT);
     text_menu[0].SetRect( pos[0].x, pos[0].y);
     text_menu[0].LoadRenderText(font,des);
 
 
     text_menu[1].SetText("EXIT");
-    text_menu[1].SetColor(TextObject::BLACK_TEXT);
+    text_menu[1].SetColor(TextObject::RED_TEXT);
     text_menu[1].SetRect( pos[1].x, pos[1].y);
     text_menu[1].LoadRenderText(font,des);
 
@@ -70,7 +70,7 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
                     if(selected[i]==false)
                     {
                         selected[i]=1;
-                        text_menu[i].SetColor(TextObject::RED_TEXT);
+                        text_menu[i].SetColor(TextObject::BLACK_TEXT);
                         text_menu[i].LoadRenderText(font, des);
                     }
                 }
@@ -79,7 +79,7 @@ int GameOver::ShowGameOver(SDL_Renderer* des,TTF_Font* font)
                     if(selected[i]==true)
                     {
                         selected[i]=0;
-                        text_menu[i].SetColor(TextObject::BLACK_TEXT);
+                        text_menu[i].SetColor(TextObject::RED_TEXT);
                         text_menu[i].LoadRenderText(font,des);
                     }
                 }

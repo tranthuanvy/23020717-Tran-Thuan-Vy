@@ -42,6 +42,7 @@ public:
     int GetMoneyCount()const{return moneycount;}
     int GetScoreCount()const{return scorecount;}
     bool GetIsDie()const{return is_die_;}
+
 private:
     int moneycount ;
     int scorecount;
@@ -67,6 +68,7 @@ private:
 
  public:
     bool is_die_;
+
 
 
     float x_pos_;

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1714034762 source:c:\users\admin\desktop\thuchoan\main.cpp
+1714126098 source:c:\users\admin\desktop\thuchoan\main.cpp
 	"CommonFunc.h"
 	"BaseObject.h"
 	"GameMap.h"
@@ -40,7 +40,7 @@
 1712467946 c:\users\admin\desktop\thuchoan\gamemap.cpp
 	"GameMap.h"
 
-1713989094 c:\users\admin\desktop\thuchoan\mainobject.h
+1714055924 c:\users\admin\desktop\thuchoan\mainobject.h
 	<vector>
 	"CommonFunc.h"
 	"BaseObject.h"
@@ -91,12 +91,12 @@
 	"CommonFunc.h"
 	"TextObject.h"
 
-1714029006 source:c:\users\admin\desktop\thuchoan\menu.cpp
+1714109580 source:c:\users\admin\desktop\thuchoan\menu.cpp
 	"Menu.h"
 
 1713978911 c:\users\admin\desktop\thuchoan\gamestate.h
 
-1714029006 source:c:\users\admin\desktop\thuchoan\gameover.cpp
+1714109580 source:c:\users\admin\desktop\thuchoan\gameover.cpp
 	"GameOver.h"
 
 1714018798 c:\users\admin\desktop\thuchoan\gameover.h

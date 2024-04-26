@@ -120,6 +120,7 @@ bool loadbkground()
              p_threat->LoadImg("Pics/threatobject.png",gRenderer);
              p_threat->set_clips();
              p_threat->setxpos(2000+i*1200);
+             ;
              p_threat->setypos(250);
 
              BulletObject*p_bullet=new BulletObject();
@@ -140,7 +141,7 @@ bool loadbkground()
          {
              p_threat->LoadImg("Pics/cactus.png",gRenderer);
              p_threat->set_clips();
-             p_threat->setxpos(1400+i*1200);
+             p_threat->setxpos(1400+i*800);
              p_threat->setypos(250);
              list_threat.push_back(p_threat);
          }
@@ -264,7 +265,7 @@ again_label:
                         g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
                         g_gameover.renderTextureGameBackGround(gRenderer,NULL);
                         SDL_RenderPresent(gRenderer);
-                         Sleep(700);
+                         Sleep(1000);
                        character_game.is_die_=true;
                         break;
                      }
@@ -277,8 +278,9 @@ again_label:
              {
                 g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
                 g_gameover.renderTextureGameBackGround(gRenderer,NULL);
+
                 SDL_RenderPresent(gRenderer);
-                Sleep(700);
+                Sleep(1000);
                 character_game.is_die_=true;
                 p_threat->Free();
 
@@ -288,7 +290,7 @@ again_label:
 
 
 
-//va chạm giữa con heo với xương rồng nếu con heo chạm xuong rồng thì sẽ  và kết thúc chương trình
+//va chạm giữa con heo với xương rồng nếu con heo chạm xuong rồng thì sẽ chết  và kết thúc chương trình
      for(int i = 0; i < threat_list1.size(); i++)
 {
     ThreatObject* p_threat1 = threat_list1.at(i);
@@ -309,7 +311,7 @@ again_label:
             g_gameover.LoadImg("Pics/GameOver.png",gRenderer);
             g_gameover.renderTextureGameBackGround(gRenderer,NULL);
             SDL_RenderPresent(gRenderer);
-            Sleep(700);
+            Sleep(1000);
             character_game.is_die_=true;
             p_threat1->Free();
 
@@ -406,7 +408,7 @@ again_label:
       bool game_over = character_game.GetIsDie();
         if (game_over == true)
         {
-            Sleep(700);
+            Sleep(1000);
             int ret_menu = myGameOver.ShowGameOver(gRenderer,font_menu);
             if (ret_menu == 1)
             {
@@ -425,8 +427,38 @@ again_label:
     int real_timer= time.get_ticks();// thoi gian thuc su troi qua
     int time_one_frame =1000/*mili giay*//FRAME_PER_SECOND;
 
-
-
+    if(score_value>=450&&score_value<=800)
+    {
+        time_one_frame =2;
+    }
+     if(score_value>800&&score_value<=1200)
+    {
+        time_one_frame =4;
+    }
+     if(score_value>1200&&score_value<=1650)
+    {
+        time_one_frame =6;
+    }
+     if(score_value>=1650&&score_value<=1900)
+    {
+        time_one_frame =9;
+    }
+     if(score_value>=1900&&score_value<=2300)
+    {
+        time_one_frame =13;
+    }
+     if(score_value>=2300&&score_value<=2700)
+    {
+        time_one_frame =15;
+    }
+    if(score_value>=2700&&score_value<=3400)
+    {
+        time_one_frame =17;
+    }
+     if(score_value>=3400&&score_value<=4000)
+    {
+        time_one_frame =20;
+    }
 
     if(real_timer<time_one_frame)
     {
