@@ -59,6 +59,7 @@ OSTACLE RACE GAME trò chơi được lấy dựa nên từ tựa game Dino kinh
   - CommonFunc: chứa các thư viện SDL,..và các biến tĩnh  sử dụng cho mọi chỗ trong code
      CheckCollision: kiểm tra va chạm giữa các vật trong game
   - BaseObject : là lớp đại diện cho một đối tượng cơ bản trong trò chơi, tức là các lớp đối tượng khác sẽ kế thừa lại những tính chất cơ bản của lớp này .
+
     LoadImg : Tải hình ảnh và tạo texture cho game
     SetRect : Thiết lập vị trí cho đối tượng
     SDL_Rect GetRect():Lấy vị trí của đối tượng
@@ -66,7 +67,8 @@ OSTACLE RACE GAME trò chơi được lấy dựa nên từ tựa game Dino kinh
     void RenderTexture: Vẽ texture lên renderer
     void Free(): giải phóng texture
 - MainObject : là lớp đại diện cho nhân vật game chính , được kế thừa những tính chất cơ bản có sẵn  của lớp BaseObject kia và các tính năng riêng của lớp 
-    HandleInputAction: Xử lí sự kiện từ chuột + bàn phím
+
+  HandleInputAction: Xử lí sự kiện từ chuột + bàn phím
     DoPlayer : Xử lý di chuyển của nhân vật 
     Mapwhenrunner: Hàm xử lý hiện map khi nhân vật di chuyển 
     CheckToMap : Hàm kiểm tra giữa nhân vật game với title map 
